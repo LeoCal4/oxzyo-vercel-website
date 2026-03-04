@@ -101,7 +101,7 @@ The admin panel is **English-only** — no locale routing inside `/admin`.
 
 ## Admin Auth Pattern
 
-The admin panel lives at `/admin/[token]/`. Access is controlled by comparing the URL token segment to `process.env.ADMIN_TOKEN` in middleware. On a valid first visit, an `httpOnly` cookie `admin_session` is set (hash of the token) so Server Actions can re-validate without reading the URL.
+The admin panel lives at `/admin/[token]/`. Access is controlled by comparing the URL token segment to `process.env.ADMIN_TOKEN` in middleware.
 
 ```typescript
 // middleware.ts — admin guard (runs before next-intl middleware)
@@ -114,7 +114,9 @@ if (pathname.startsWith('/admin/')) {
 }
 ```
 
-Server Actions must always re-validate via the `admin_session` cookie — never trust client input alone.
+**Server Actions auth**: Pass `token: string` as the first parameter to every server action, then validate with `requireAdmin(token)` in `src/lib/utils/admin.ts` (synchronous, compares directly to `process.env.ADMIN_TOKEN`). The cookie-based approach (`cookies()` from `next/headers`) was tried and abandoned — the `admin_session` cookie is not reliably available inside Server Action context. The token flows: URL param → Server Component → Client Component prop → server action argument.
+
+The admin layout (`src/app/admin/[token]/layout.tsx`) must include `<Toaster />` from sonner for toast notifications to render.
 
 ---
 
