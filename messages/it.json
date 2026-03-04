@@ -15,5 +15,23 @@
     "error": "Si è verificato un errore",
     "back": "Indietro",
     "seeAll": "Vedi tutti"
+  },
+  "calendar": {
+    "title": "Calendario",
+    "subtitle": "Prossimi eventi e serate del club",
+    "upcomingEvents": "Prossimi eventi",
+    "noEvents": "Nessun evento in programma.",
+    "announcements": "Annunci",
+    "venue": "La nostra sede",
+    "venueAddress": "Via Bonanno Pisano 20, Pisa",
+    "fixedVenue": "Sede del club",
+    "fixedVenueFull": "Via Bonanno Pisano 20, Pisa (sede del club)",
+    "openDetails": "Apri dettagli: {title}",
+    "eventTypes": {
+      "game_night": "Serata Giochi",
+      "tournament": "Torneo",
+      "special": "Evento Speciale",
+      "announcement": "Annuncio"
+    }
   }
 }

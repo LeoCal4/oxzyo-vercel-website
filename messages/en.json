@@ -15,5 +15,23 @@
     "error": "An error occurred",
     "back": "Back",
     "seeAll": "See all"
+  },
+  "calendar": {
+    "title": "Calendar",
+    "subtitle": "Upcoming events and club nights",
+    "upcomingEvents": "Upcoming events",
+    "noEvents": "No events scheduled.",
+    "announcements": "Announcements",
+    "venue": "Our venue",
+    "venueAddress": "Via Bonanno Pisano 20, Pisa",
+    "fixedVenue": "Club venue",
+    "fixedVenueFull": "Via Bonanno Pisano 20, Pisa (club venue)",
+    "openDetails": "Open details: {title}",
+    "eventTypes": {
+      "game_night": "Game Night",
+      "tournament": "Tournament",
+      "special": "Special Event",
+      "announcement": "Announcement"
+    }
   }
 }

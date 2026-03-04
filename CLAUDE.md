@@ -362,6 +362,29 @@ Always set `width` and `height` props to the **actual image dimensions** (aspect
 
 ---
 
+## Implementation Notes (Phase 6 findings)
+
+### rrule + Drizzle date strings
+Drizzle `date()` columns return `string | null` (e.g. `'2024-01-05'`), not `Date` objects. Always append `'T00:00:00Z'` when constructing Dates from them to stay in UTC:
+```typescript
+const dtstart = new Date(rule.dtstart + 'T00:00:00Z')
+```
+Use `getUTCDay()` / `getUTCDate()` / `getUTCMonth()` for day-of-week or date-part inspection on generated rrule dates (they're always UTC midnight).
+
+### Exception date matching
+To match a generated `Date` back to a stored `'YYYY-MM-DD'` exception string, use UTC components. See `toDateString()` in `src/lib/events/exceptions.ts`. The map key format is `"ruleId:YYYY-MM-DD"`.
+
+### Event data flow
+```
+generateRecurringInstances(rules, exceptions, from, to)
+  → calls applyExceptions internally → RecurringInstance[]
+mergeAndSortEvents(oneOffEvents, instances, locale)
+  → DisplayEvent[] (sorted, locale-normalized, overrides applied)
+```
+The calendar page at `src/app/[locale]/calendar/page.tsx` uses `getLocale()` from `next-intl/server` (not `params.locale`) to pick the locale.
+
+---
+
 ## Implementation Notes (Phase 1 findings)
 
 ### Tailwind CSS v4
