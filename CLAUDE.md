@@ -54,6 +54,9 @@ DATABASE_URL_UNPOOLED=   # direct (drizzle-kit migrations only)
 ADMIN_TOKEN=             # secret URL segment, min 32 chars alphanumeric
 BLOB_READ_WRITE_TOKEN=   # Vercel Blob (injected by Blob Marketplace integration)
 BGG_USERNAME=orizzontiludici
+# BGG auth — one of the two is required:
+BGG_PASSWORD=            # BGG account password (no registration needed for own collection per BGG policy)
+BGG_API_TOKEN=           # OR: Bearer token from BGG app registration (boardgamegeek.com/using_the_xml_api)
 NEXT_PUBLIC_SITE_URL=    # e.g. https://oxzyo.it
 ```
 
@@ -175,11 +178,24 @@ Generation is **on-the-fly** at render time using the `rrule` library. Window: *
 ## BGG Sync
 
 - Triggered manually from `/admin/[token]/sync` via `POST /api/admin/bgg-sync`
-- Returns job ID immediately; background work runs via Next.js `after()` (Fluid Compute, 300s limit — fine for ~400 games)
+- Returns job ID immediately; background work runs via Next.js `after()` (Fluid Compute, 300s limit — fine for ~675 games)
 - Frontend polls `GET /api/admin/bgg-sync/status` every 3s
 - BGG API may return HTTP 202 ("try again") — retry up to 5× with 2s delay
 - Batch thing requests in groups of 100 IDs
 - Upsert preserves all custom fields (`times_played`, `club_rating`, `staff_pick`, `lending_to`)
+
+### BGG API Authentication (as of 2025)
+
+BGG XML API v2 **requires authentication** on all endpoints. Two modes are supported in `src/lib/bgg/client.ts`:
+
+| Mode | Env vars needed | What works |
+|---|---|---|
+| Session auth | `BGG_USERNAME` + `BGG_PASSWORD` | `/collection` endpoint only (BGG policy: own collection while logged in needs no registration) |
+| Bearer token | `BGG_API_TOKEN` | All endpoints, including `/thing` (mechanics/categories/designers) |
+
+The client logs into `https://boardgamegeek.com/login/api/v1` (POST with `{"credentials":{...}}`), caches the session cookie for the process lifetime, and sends it as a `Cookie` header. `BGG_API_TOKEN` (if set) takes priority and is sent as `Authorization: Bearer`.
+
+**Practical consequence**: without `BGG_API_TOKEN`, the sync completes with all core game fields (title, players, playtime, weight, rating) but junction tables (`game_mechanics`, `game_categories`, `game_designers`) are not populated. The `bgg_sync_jobs.error_message` field notes this. Register at `boardgamegeek.com/using_the_xml_api` to get a token.
 
 ---
 
@@ -279,6 +295,30 @@ type NewGame = typeof games.$inferInsert
 
 ### Content block seed script
 `src/lib/db/seed-content.ts` is idempotent (`onConflictDoNothing`) — safe to re-run. All 8 predefined content blocks are already seeded in the Neon DB. Run with `npx tsx src/lib/db/seed-content.ts`.
+
+---
+
+## Implementation Notes (Phase 3 findings)
+
+### Running TypeScript scripts against the live DB
+
+`tsx` is installed as a local dev dependency. Use Node's `--env-file` flag to load `.env.local` **before** any module is evaluated — this is critical because `src/lib/db/index.ts` calls `neon()` at import time and needs `DATABASE_URL` to already be set.
+
+```bash
+# Correct — env vars loaded before any module runs
+node --env-file=.env.local -r tsx/cjs src/scripts/your-script.ts
+
+# Wrong — dotenv import gets hoisted by esbuild, runs too late
+npx tsx src/scripts/your-script.ts   # DATABASE_URL not set when neon() is called
+```
+
+Scripts that create their own inline `neon()` call (like `seed-content.ts`) can still use `npx tsx` because they call `config({ path: '.env.local' })` before the `neon()` call, and esbuild only hoists the `import` of the dotenv module (not the `config()` invocation). Any script that imports from `src/lib/db` must use `node --env-file`.
+
+### BGG collection size
+The `orizzontiludici` BGG collection has **675 games** as of March 2026 (not ~400 as originally estimated). Sync takes roughly 30–40s of wall time including BGG API latency.
+
+### BGG things API requires registered token
+See the BGG Sync section above. The `/collection` endpoint works with session-based auth (BGG policy exception for own collection). The `/thing` endpoint always requires `BGG_API_TOKEN`. The sync gracefully degrades: it completes with `status = 'completed'` and notes the skipped enrichment in `error_message`.
 
 ---
 
