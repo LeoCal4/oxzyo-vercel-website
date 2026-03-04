@@ -251,6 +251,37 @@ Social:       Instagram, Facebook, Telegram (WhatsApp: future placeholder)
 
 ---
 
+## Implementation Notes (Phase 2 findings)
+
+### drizzle-orm 0.45 — breaking syntax changes
+The installed version (0.45.x) uses **array syntax** for table-level constraints, not object syntax:
+```typescript
+// Correct (0.45+)
+pgTable('name', { ... }, (t) => [primaryKey({ columns: [t.a, t.b] })])
+pgTable('name', { ... }, (t) => [unique().on(t.a, t.b)])
+
+// Wrong (old syntax — do not use)
+pgTable('name', { ... }, (t) => ({ pk: primaryKey({ columns: [t.a, t.b] }) }))
+```
+
+### Drizzle inferred types
+Use `$inferSelect` / `$inferInsert` directly on the table (not the older `InferSelectModel` / `InferInsertModel` helpers):
+```typescript
+type Game    = typeof games.$inferSelect
+type NewGame = typeof games.$inferInsert
+```
+
+### Shared type files
+`src/types/` contains derived types for use across the app:
+- `games.ts` — `GameWithRelations`, `GameFilterParams`, `GamesQueryResult`, `PAGE_SIZE`
+- `events.ts` — `DisplayEvent`, `RecurringInstance` (normalized view model types)
+- `content.ts` — `ContentBlockKey` union, `Locale` type
+
+### Content block seed script
+`src/lib/db/seed-content.ts` is idempotent (`onConflictDoNothing`) — safe to re-run. All 8 predefined content blocks are already seeded in the Neon DB. Run with `npx tsx src/lib/db/seed-content.ts`.
+
+---
+
 ## Implementation Notes (Phase 1 findings)
 
 ### Tailwind CSS v4
