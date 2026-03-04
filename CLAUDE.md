@@ -15,7 +15,7 @@ Italian board game club website (OxzyO – Orizzonti Ludici, Pisa), Vercel-deplo
 
 | Layer | Choice |
 |---|---|
-| Framework | Next.js 15, App Router, TypeScript |
+| Framework | Next.js 16, App Router, TypeScript |
 | Styling | Tailwind CSS v4 + shadcn/ui + Radix UI |
 | Icons | Lucide React |
 | ORM | Drizzle ORM (`drizzle-orm/neon-http`) |
@@ -105,7 +105,8 @@ The admin panel lives at `/admin/[token]/`. Access is controlled by comparing th
 if (pathname.startsWith('/admin/')) {
   const token = pathname.split('/')[2]
   if (token !== process.env.ADMIN_TOKEN) {
-    return NextResponse.notFound() // 404, not 401
+    return new NextResponse(null, { status: 404 }) // 404, not 401
+    // NOTE: NextResponse.notFound() does NOT exist in middleware — only in route handlers
   }
 }
 ```
@@ -227,7 +228,7 @@ Pastel orange:    #ffca98
 Off-white/yellow: #fffbd8
 
 Headings / brand: Poppins (Google Fonts)
-Body text:        [decided during implementation, e.g. Inter or Nunito]
+Body text:        Inter (Google Fonts)
 
 Aesthetic: playful but not overdone; tabletop / warm tones
 ```
@@ -247,6 +248,37 @@ Address:      Via Bonanno Pisano 20, Pisa, 56124, Italy
 BGG profile:  https://boardgamegeek.com/profile/orizzontiludici
 Social:       Instagram, Facebook, Telegram (WhatsApp: future placeholder)
 ```
+
+---
+
+## Implementation Notes (Phase 1 findings)
+
+### Tailwind CSS v4
+No `tailwind.config.ts` — everything lives in `src/app/globals.css`:
+- Register plugins: `@plugin "@tailwindcss/typography"`
+- Define theme tokens: `@theme { --color-orange: #fd7c01; ... }`
+- shadcn injects its own imports (`tw-animate-css`, `shadcn/tailwind.css`) at the top automatically
+
+### shadcn/ui v3
+- `toast` component is **deprecated** — use `sonner` instead (`src/components/ui/sonner.tsx`)
+- Init command: `npx shadcn@latest init --defaults -y`
+- Add components: `npx shadcn@latest add <name> -y`
+
+### drizzle-kit and .env.local
+drizzle-kit does **not** auto-load `.env.local` (that's a Next.js convention). `drizzle.config.ts` must load it explicitly:
+```typescript
+import { config } from 'dotenv'
+config({ path: '.env.local' })
+```
+
+### next-intl setup
+- Config file: `i18n.ts` at repo root (uses `getRequestConfig`)
+- Routing config: `src/lib/i18n/routing.ts` (uses `defineRouting`)
+- next.config.ts wraps with: `createNextIntlPlugin('./i18n.ts')`
+- `[locale]/layout.tsx` wraps children in `<NextIntlClientProvider messages={messages}>`
+
+### Env vars for local dev
+Run `vercel env pull .env.local` to pull all Vercel-injected vars (Neon, Blob) into `.env.local`.
 
 ---
 
