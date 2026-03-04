@@ -1,0 +1,19 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About Us",
+    "join": "Join Us",
+    "calendar": "Calendar",
+    "games": "Games"
+  },
+  "footer": {
+    "copyright": "© {year} OxzyO - Orizzonti Ludici",
+    "contact": "Contact"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "back": "Back",
+    "seeAll": "See all"
+  }
+}
