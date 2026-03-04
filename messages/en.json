@@ -1,4 +1,38 @@
 {
+  "homepage": {
+    "title": "Home",
+    "description": "OxzyO – Orizzonti Ludici, Pisa's board game club.",
+    "upcomingEvents": "Upcoming events",
+    "noEvents": "No events scheduled.",
+    "seeAllEvents": "See all events",
+    "staffPicks": "Staff picks",
+    "noStaffPicks": "No games selected.",
+    "seeAllGames": "See all games",
+    "contact": {
+      "heading": "Contact us",
+      "button": "Send an email",
+      "address": "Via Bonanno Pisano 20, Pisa"
+    }
+  },
+  "about": {
+    "title": "About Us",
+    "description": "Discover the story and values of OxzyO – Orizzonti Ludici, Pisa's board game club.",
+    "story": "Our story",
+    "gallery": "Photo gallery",
+    "galleryComingSoon": "Club photos coming soon.",
+    "values": "Our values"
+  },
+  "join": {
+    "title": "Join Us",
+    "description": "Join the OxzyO – Orizzonti Ludici board game club in Pisa.",
+    "process": "How to join",
+    "benefits": "Benefits",
+    "fee": "Membership fee"
+  },
+  "games": {
+    "title": "Games Library",
+    "description": "Explore OxzyO's games library – over 600 board games available."
+  },
   "nav": {
     "home": "Home",
     "about": "About Us",
@@ -19,6 +53,7 @@
   "calendar": {
     "title": "Calendar",
     "subtitle": "Upcoming events and club nights",
+    "description": "Calendar of events and game nights at OxzyO – Orizzonti Ludici.",
     "upcomingEvents": "Upcoming events",
     "noEvents": "No events scheduled.",
     "announcements": "Announcements",

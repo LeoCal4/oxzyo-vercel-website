@@ -385,6 +385,26 @@ The calendar page at `src/app/[locale]/calendar/page.tsx` uses `getLocale()` fro
 
 ---
 
+## Implementation Notes (Phase 7 findings)
+
+### Content block helpers
+`src/lib/content/blocks.ts` provides two functions — use `getContentBlocks(keys[], locale)` for batch fetching (single DB query) rather than multiple `getContentBlock` calls.
+
+### SEO metadata pattern
+All public pages use `generateMetadata({ params })` (not static `export const metadata`) so the locale can be read from `params`. Pattern:
+```typescript
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: 'ns' })
+  ...
+}
+```
+
+### robots.txt — do NOT list /admin/
+`src/app/robots.ts` intentionally omits `Disallow: /admin/`. The middleware 404 is the guard; listing the path in robots.txt would disclose its existence. The token is the real secret.
+
+---
+
 ## Implementation Notes (Phase 1 findings)
 
 ### Tailwind CSS v4

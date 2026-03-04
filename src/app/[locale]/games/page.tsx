@@ -1,5 +1,26 @@
+import type { Metadata } from 'next'
+import { getTranslations } from 'next-intl/server'
 import { Suspense } from 'react'
 import { fetchGames, fetchFilterOptions } from '@/lib/games/query'
+
+type PageProps = { params: Promise<{ locale: string }> }
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: 'games' })
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://oxzyo.it'
+  return {
+    title: `${t('title')} | OxzyO`,
+    description: t('description'),
+    openGraph: {
+      title: `${t('title')} | OxzyO`,
+      description: t('description'),
+      url: `${siteUrl}/${locale}/games`,
+      siteName: 'OxzyO – Orizzonti Ludici',
+      locale: locale === 'it' ? 'it_IT' : 'en_GB',
+    },
+  }
+}
 import { GameViewToggle } from '@/components/games/GameViewToggle'
 import { GameFilters } from '@/components/games/GameFilters'
 import { GamePagination } from '@/components/games/GamePagination'

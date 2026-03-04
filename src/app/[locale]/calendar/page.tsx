@@ -1,9 +1,29 @@
 export const dynamic = 'force-dynamic'
 
+import type { Metadata } from 'next'
 import { db } from '@/lib/db'
 import { events, recurringRules, recurringExceptions } from '@/lib/db/schema'
 import { gte, isNull, or, eq } from 'drizzle-orm'
-import { getLocale } from 'next-intl/server'
+import { getLocale, getTranslations } from 'next-intl/server'
+
+type PageProps = { params: Promise<{ locale: string }> }
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: 'calendar' })
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://oxzyo.it'
+  return {
+    title: `${t('title')} | OxzyO`,
+    description: t('description'),
+    openGraph: {
+      title: `${t('title')} | OxzyO`,
+      description: t('description'),
+      url: `${siteUrl}/${locale}/calendar`,
+      siteName: 'OxzyO – Orizzonti Ludici',
+      locale: locale === 'it' ? 'it_IT' : 'en_GB',
+    },
+  }
+}
 import { generateRecurringInstances } from '@/lib/events/generate'
 import { mergeAndSortEvents } from '@/lib/events/merge'
 import { EventList } from '@/components/events/EventList'
