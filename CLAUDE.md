@@ -322,6 +322,46 @@ See the BGG Sync section above. The `/collection` endpoint works with session-ba
 
 ---
 
+## Implementation Notes (Phase 4 & 5 findings)
+
+### next-intl navigation utilities
+`src/lib/i18n/navigation.ts` exports locale-aware `Link`, `useRouter`, `usePathname`, `getPathname` via `createNavigation(routing)`. Always import these instead of the `next/navigation` equivalents for public pages.
+
+```typescript
+import { Link, useRouter, usePathname } from '@/lib/i18n/navigation'
+```
+
+For locale switching use `router.replace(pathname, { locale: newLocale })`.
+For `lang` attribute on `<html>`: use `await getLocale()` from `next-intl/server` in the root layout.
+
+### Drizzle EXISTS with raw SQL
+`exists(sql\`...\`)` generates `EXISTS SELECT ...` **without parentheses** — Postgres rejects this.
+Always write the full expression inline:
+```typescript
+// Correct
+sql`EXISTS (SELECT 1 FROM game_mechanics WHERE game_id = ${games.id} AND mechanic_id = ${mechId})`
+
+// Wrong — missing parens
+exists(sql`SELECT 1 FROM game_mechanics WHERE ...`)
+```
+
+### BGG titles contain HTML entities
+BGG API returns titles with HTML entities (e.g. `&#039;` for apostrophe). `decodeHtml()` is in `src/lib/utils.ts` — use it whenever displaying a game title:
+```typescript
+const title = decodeHtml(game.titleOverride ?? game.title)
+```
+The BGG parser also calls `decodeHtml()` on titles at parse time, so future syncs store clean data.
+
+### next/image with logos / square images
+Always set `width` and `height` props to the **actual image dimensions** (aspect ratio matters for Next.js srcset). For the OxzyO logo (5000×5000 px): `width={5000} height={5000}`. Control display size via CSS (`className="h-12 w-auto"`). In flex containers, add `self-start` to prevent stretch.
+
+### Games query pattern
+- `buildGameConditions(params)` — pure function, no DB calls, unit-testable (see `src/tests/lib/games/query.test.ts`)
+- `fetchGames(params)` — runs count + paginated ID query (core API), then fetches relations for those IDs via `db.query.games.findMany` (relational API)
+- `fetchFilterOptions()` — returns all mechanics, categories, designers for filter sidebar
+
+---
+
 ## Implementation Notes (Phase 1 findings)
 
 ### Tailwind CSS v4

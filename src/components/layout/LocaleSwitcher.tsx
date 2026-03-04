@@ -1,0 +1,56 @@
+'use client'
+
+import { useLocale } from 'next-intl'
+import { useRouter, usePathname } from '@/lib/i18n/navigation'
+import { useTransition } from 'react'
+import { cn } from '@/lib/utils'
+
+type SwitcherProps = {
+  className?: string
+}
+
+export function LocaleSwitcher({ className }: SwitcherProps) {
+  const locale = useLocale()
+  const router = useRouter()
+  const pathname = usePathname()
+  const [isPending, startTransition] = useTransition()
+
+  function switchLocale(newLocale: 'it' | 'en') {
+    if (newLocale === locale) return
+    startTransition(() => {
+      router.replace(pathname, { locale: newLocale })
+    })
+  }
+
+  return (
+    <div
+      className={cn('flex items-center gap-1', className)}
+      aria-label="Cambia lingua"
+    >
+      <button
+        onClick={() => switchLocale('it')}
+        className={cn(
+          'text-base leading-none px-1 py-0.5 rounded transition-opacity',
+          locale === 'it' ? 'opacity-100' : 'opacity-40 hover:opacity-70',
+        )}
+        aria-label="Italiano"
+        aria-pressed={locale === 'it'}
+        disabled={isPending}
+      >
+        🇮🇹
+      </button>
+      <button
+        onClick={() => switchLocale('en')}
+        className={cn(
+          'text-base leading-none px-1 py-0.5 rounded transition-opacity',
+          locale === 'en' ? 'opacity-100' : 'opacity-40 hover:opacity-70',
+        )}
+        aria-label="English"
+        aria-pressed={locale === 'en'}
+        disabled={isPending}
+      >
+        🇬🇧
+      </button>
+    </div>
+  )
+}

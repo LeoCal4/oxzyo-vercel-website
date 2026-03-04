@@ -1,4 +1,5 @@
 import { XMLParser } from 'fast-xml-parser'
+import { decodeHtml } from '@/lib/utils'
 
 export interface BggCollectionItem {
   bggId: number
@@ -71,7 +72,7 @@ export function parseCollection(xml: string): BggCollectionItem[] {
     const bggId = parseInt(String(item['@_objectid'] ?? ''), 10)
     if (!bggId || isNaN(bggId)) continue
 
-    const title = resolveCollectionName(item.name)
+    const title = decodeHtml(resolveCollectionName(item.name))
     if (!title) continue
 
     const stats = (item.stats ?? {}) as Record<string, unknown>

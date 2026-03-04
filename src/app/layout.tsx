@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins, Inter } from "next/font/google";
+import { getLocale } from "next-intl/server";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -18,14 +19,15 @@ export const metadata: Metadata = {
   description: "Il club di giochi da tavolo di Pisa",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
   return (
-    <html lang="it">
-      <body className={`${poppins.variable} ${inter.variable}`}>
+    <html lang={locale} suppressHydrationWarning>
+      <body className={`${poppins.variable} ${inter.variable} antialiased`}>
         {children}
       </body>
     </html>
