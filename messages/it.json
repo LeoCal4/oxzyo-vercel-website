@@ -76,6 +76,16 @@
     "seeAll": "Vedi tutti",
     "contentComing": "Contenuto in arrivo."
   },
+  "notFound": {
+    "title": "Pagina non trovata",
+    "description": "La pagina che cerchi non esiste o è stata spostata.",
+    "backHome": "Torna alla home"
+  },
+  "errorPage": {
+    "title": "Qualcosa è andato storto",
+    "description": "Si è verificato un errore imprevisto. Riprova tra qualche istante.",
+    "retry": "Riprova"
+  },
   "calendar": {
     "title": "Calendario",
     "subtitle": "Prossimi eventi e serate del club",

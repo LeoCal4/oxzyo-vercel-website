@@ -12,11 +12,11 @@ export interface BggCollectionItem {
   minPlaytime: number | null
   maxPlaytime: number | null
   bggRating: number | null
-  weight: number | null
 }
 
 export interface BggThingDetail {
   bggId: number
+  weight: number | null
   mechanics: { bggId: number; name: string }[]
   categories: { bggId: number; name: string }[]
   designers: { name: string }[]
@@ -78,7 +78,6 @@ export function parseCollection(xml: string): BggCollectionItem[] {
     const stats = (item.stats ?? {}) as Record<string, unknown>
     const rating = (stats.rating ?? {}) as Record<string, unknown>
     const average = (rating.average as Record<string, unknown> | undefined)?.['@_value']
-    const avgWeight = (rating.averageweight as Record<string, unknown> | undefined)?.['@_value']
 
     results.push({
       bggId,
@@ -91,7 +90,6 @@ export function parseCollection(xml: string): BggCollectionItem[] {
       minPlaytime: parseNum(stats['@_minplaytime']),
       maxPlaytime: parseNum(stats['@_maxplaytime']),
       bggRating: parseFloat_(average),
-      weight: parseFloat_(avgWeight),
     })
   }
 
@@ -105,6 +103,15 @@ export function parseThings(xml: string): BggThingDetail[] {
   return items.map((raw) => {
     const item = raw as Record<string, unknown>
     const bggId = parseInt(String(item['@_id'] ?? ''), 10)
+
+    const ratings = (
+      (item.statistics as Record<string, unknown> | undefined)?.ratings as
+        | Record<string, unknown>
+        | undefined
+    ) ?? {}
+    const weight = parseFloat_(
+      (ratings.averageweight as Record<string, unknown> | undefined)?.['@_value'],
+    )
 
     const links: Record<string, unknown>[] = Array.isArray(item.link)
       ? (item.link as Record<string, unknown>[])
@@ -127,6 +134,6 @@ export function parseThings(xml: string): BggThingDetail[] {
       .map((l) => ({ name: String(l['@_value'] ?? '') }))
       .filter((d) => d.name && d.name !== '(Uncredited)')
 
-    return { bggId, mechanics, categories, designers }
+    return { bggId, weight, mechanics, categories, designers }
   })
 }

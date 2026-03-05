@@ -136,7 +136,7 @@ function FiltersForm({ mechanics, categories, designers, currentParams }: Props)
           type="text"
           placeholder={t('filterSearch')}
           defaultValue={search}
-          className="w-full rounded-lg border border-gray-200 pl-9 pr-3 py-2 text-sm outline-none focus:border-[#fd7c01] focus:ring-1 focus:ring-[#fd7c01]"
+          className="w-full rounded-lg border border-gray-200 pl-9 pr-3 py-2 text-sm outline-none focus:border-[#0076fb] focus:ring-1 focus:ring-[#0076fb]"
           onChange={(e) => updateFilter('search', e.target.value || null)}
         />
       </div>
@@ -150,7 +150,7 @@ function FiltersForm({ mechanics, categories, designers, currentParams }: Props)
           max={20}
           placeholder={t('filterPlayersPlaceholder')}
           defaultValue={players}
-          className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-[#fd7c01] focus:ring-1 focus:ring-[#fd7c01]"
+          className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-[#0076fb] focus:ring-1 focus:ring-[#0076fb]"
           onChange={(e) => updateFilter('players', e.target.value || null)}
         />
       </div>
@@ -164,7 +164,7 @@ function FiltersForm({ mechanics, categories, designers, currentParams }: Props)
             min={0}
             placeholder={t('filterMin')}
             defaultValue={minTime}
-            className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-[#fd7c01] focus:ring-1 focus:ring-[#fd7c01]"
+            className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-[#0076fb] focus:ring-1 focus:ring-[#0076fb]"
             onChange={(e) => updateFilter('minTime', e.target.value || null)}
           />
           <input
@@ -172,37 +172,8 @@ function FiltersForm({ mechanics, categories, designers, currentParams }: Props)
             min={0}
             placeholder={t('filterMax')}
             defaultValue={maxTime}
-            className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-[#fd7c01] focus:ring-1 focus:ring-[#fd7c01]"
+            className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-[#0076fb] focus:ring-1 focus:ring-[#0076fb]"
             onChange={(e) => updateFilter('maxTime', e.target.value || null)}
-          />
-        </div>
-      </div>
-
-      {/* Weight */}
-      <div>
-        <label className="block text-xs font-medium text-gray-600 mb-1">
-          {t('filterWeight')}
-        </label>
-        <div className="flex gap-2">
-          <input
-            type="number"
-            min={1}
-            max={5}
-            step={0.5}
-            placeholder={t('filterMin')}
-            defaultValue={minWeight}
-            className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-[#fd7c01] focus:ring-1 focus:ring-[#fd7c01]"
-            onChange={(e) => updateFilter('minWeight', e.target.value || null)}
-          />
-          <input
-            type="number"
-            min={1}
-            max={5}
-            step={0.5}
-            placeholder={t('filterMax')}
-            defaultValue={maxWeight}
-            className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-[#fd7c01] focus:ring-1 focus:ring-[#fd7c01]"
-            onChange={(e) => updateFilter('maxWeight', e.target.value || null)}
           />
         </div>
       </div>
@@ -294,7 +265,7 @@ export function GameFilters(props: Props) {
               {t('filterHeading')}
             </button>
           </SheetTrigger>
-          <SheetContent side="left" className="w-72 overflow-y-auto pt-12">
+          <SheetContent side="left" className="w-72 overflow-y-auto pt-12 px-4">
             <SheetTitle className="text-sm font-semibold text-gray-700 mb-4">{t('filterHeading')}</SheetTitle>
             <FiltersForm {...props} />
           </SheetContent>

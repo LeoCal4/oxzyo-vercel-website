@@ -80,7 +80,7 @@ export async function runBggSync(jobId: string): Promise<void> {
       minPlaytime: item.minPlaytime,
       maxPlaytime: item.maxPlaytime,
       bggRating: item.bggRating,
-      weight: item.weight,
+      weight: thingMap.get(item.bggId)?.weight ?? null,
       bggSyncedAt: now,
       updatedAt: now,
     }))

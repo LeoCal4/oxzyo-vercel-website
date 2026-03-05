@@ -102,7 +102,7 @@ export default async function GamesPage({
         {t('title')}
       </h1>
 
-      <div className="flex gap-8">
+      <div className="flex flex-col lg:flex-row gap-4 lg:gap-8">
         <GameFilters
           mechanics={filterOptions.mechanics}
           categories={filterOptions.categories}

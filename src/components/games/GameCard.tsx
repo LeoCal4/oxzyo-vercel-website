@@ -59,7 +59,7 @@ export function GameCard({ game, className }: Props) {
             src={imageUrl}
             alt={title}
             fill
-            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+            sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
             className="object-cover object-top group-hover:scale-105 transition-transform duration-300"
           />
         ) : (

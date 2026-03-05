@@ -15,11 +15,12 @@ export function MobileNav() {
         <button
           aria-label="Apri menu"
           className="p-2 rounded-md hover:bg-white/10 transition-colors"
+          suppressHydrationWarning
         >
           <Menu className="h-6 w-6" />
         </button>
       </SheetTrigger>
-      <SheetContent side="right" className="w-64 bg-[#fd7c01] text-white border-l-0 pt-16">
+      <SheetContent side="right" className="w-64 bg-[#fd7c01] text-white border-l-0 pt-16 px-6">
         <SheetTitle className="sr-only">Menu di navigazione</SheetTitle>
         <div className="flex flex-col gap-8">
           <NavLinks

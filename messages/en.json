@@ -76,6 +76,16 @@
     "seeAll": "See all",
     "contentComing": "Content coming soon."
   },
+  "notFound": {
+    "title": "Page not found",
+    "description": "The page you are looking for does not exist or has been moved.",
+    "backHome": "Back to home"
+  },
+  "errorPage": {
+    "title": "Something went wrong",
+    "description": "An unexpected error occurred. Please try again in a moment.",
+    "retry": "Try again"
+  },
   "calendar": {
     "title": "Calendar",
     "subtitle": "Upcoming events and club nights",
