@@ -7,6 +7,14 @@ export type GameWithRelations = Game & {
   categories: Category[]
 }
 
+export type GameSortOption =
+  | 'title'
+  | 'titleDesc'
+  | 'timesPlayed'
+  | 'timesPlayedAsc'
+  | 'minPlaytime'
+  | 'minPlaytimeDesc'
+
 /** Params accepted by fetchGames() */
 export interface GameFilterParams {
   search?: string
@@ -19,6 +27,7 @@ export interface GameFilterParams {
   categories?: string[]
   designers?: string[]
   staffPick?: boolean
+  sort?: GameSortOption
   page?: number
 }
 

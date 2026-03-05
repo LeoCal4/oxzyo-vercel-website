@@ -7,7 +7,7 @@
 
 ## Project in One Line
 
-Italian board game club website (OxzyO – Orizzonti Ludici, Pisa), Vercel-deployed, bilingual IT/EN, with a games library (BGG-imported), events calendar (with recurring rules), and a secret admin panel.
+Italian board game club website (OxzyO - Orizzonti Ludici, Pisa), Vercel-deployed, bilingual IT/EN, with a games library (BGG-imported), events calendar (with recurring rules), and a secret admin panel.
 
 ---
 
@@ -260,7 +260,7 @@ Logo files in `public/images/`:
 ## Fixed Club Info
 
 ```
-Club name:    OxzyO – Orizzonti Ludici
+Club name:    OxzyO - Orizzonti Ludici
 Contact:      tdg.pisa@gmail.com
 Address:      Via Bonanno Pisano 20, Pisa, 56124, Italy
 BGG profile:  https://boardgamegeek.com/profile/orizzontiludici
@@ -317,7 +317,7 @@ npx tsx src/scripts/your-script.ts   # DATABASE_URL not set when neon() is calle
 Scripts that create their own inline `neon()` call (like `seed-content.ts`) can still use `npx tsx` because they call `config({ path: '.env.local' })` before the `neon()` call, and esbuild only hoists the `import` of the dotenv module (not the `config()` invocation). Any script that imports from `src/lib/db` must use `node --env-file`.
 
 ### BGG collection size
-The `orizzontiludici` BGG collection has **675 games** as of March 2026 (not ~400 as originally estimated). Sync takes roughly 30–40s of wall time including BGG API latency.
+The `orizzontiludici` BGG collection has **675 games** as of March 2026 (not ~400 as originally estimated). Sync takes roughly 30-40s of wall time including BGG API latency.
 
 ### BGG things API requires registered token
 See the BGG Sync section above. The `/collection` endpoint works with session-based auth (BGG policy exception for own collection). The `/thing` endpoint always requires `BGG_API_TOKEN`. The sync gracefully degrades: it completes with `status = 'completed'` and notes the skipped enrichment in `error_message`.

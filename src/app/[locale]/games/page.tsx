@@ -25,7 +25,9 @@ import { GameViewToggle } from '@/components/games/GameViewToggle'
 import { GameFilters } from '@/components/games/GameFilters'
 import { GamePagination } from '@/components/games/GamePagination'
 import { GamesGridSkeleton } from '@/components/games/GameCardSkeleton'
-import type { GameFilterParams } from '@/types/games'
+import type { GameFilterParams, GameSortOption } from '@/types/games'
+
+const VALID_SORTS: GameSortOption[] = ['title', 'titleDesc', 'timesPlayed', 'timesPlayedAsc', 'minPlaytime', 'minPlaytimeDesc']
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>>
 
@@ -55,6 +57,9 @@ function parseParams(raw: Record<string, string | string[] | undefined>): GameFi
     categories: arr(raw.categories),
     designers: arr(raw.designers),
     staffPick: str(raw.staffPick) === 'true',
+    sort: VALID_SORTS.includes(str(raw.sort) as GameSortOption)
+      ? (str(raw.sort) as GameSortOption)
+      : undefined,
     page: num(raw.page) ?? 1,
   }
 }

@@ -122,6 +122,7 @@ function FiltersForm({ mechanics, categories, designers, currentParams }: Props)
   const selectedCategories = arr(currentParams.categories)
   const selectedDesigners = arr(currentParams.designers)
   const staffPick = str(currentParams.staffPick) === 'true'
+  const sort = str(currentParams.sort) || 'title'
 
   const hasFilters =
     search || players || minTime || maxTime || minWeight || maxWeight ||
@@ -129,6 +130,23 @@ function FiltersForm({ mechanics, categories, designers, currentParams }: Props)
 
   return (
     <div className="flex flex-col gap-4">
+      {/* Sort */}
+      <div>
+        <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">{t('sortLabel')}</label>
+        <select
+          value={sort}
+          className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-[#0076fb] focus:ring-1 focus:ring-[#0076fb] dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200"
+          onChange={(e) => updateFilter('sort', e.target.value === 'title' ? null : e.target.value)}
+        >
+          <option value="title">{t('sortTitle')}</option>
+          <option value="titleDesc">{t('sortTitleDesc')}</option>
+          <option value="timesPlayed">{t('sortTimesPlayed')}</option>
+          <option value="timesPlayedAsc">{t('sortTimesPlayedAsc')}</option>
+          <option value="minPlaytime">{t('sortDuration')}</option>
+          <option value="minPlaytimeDesc">{t('sortDurationDesc')}</option>
+        </select>
+      </div>
+
       {/* Search */}
       <div className="relative">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />

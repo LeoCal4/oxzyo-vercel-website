@@ -24,9 +24,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     },
   }
 }
+
 import { generateRecurringInstances } from '@/lib/events/generate'
 import { mergeAndSortEvents } from '@/lib/events/merge'
-import { EventList } from '@/components/events/EventList'
+import { EventsDisplay } from '@/components/events/EventsDisplay'
 import { MapEmbed } from '@/components/MapEmbed'
 import type { Locale } from '@/types/content'
 
@@ -38,19 +39,16 @@ async function fetchCalendarData() {
   const twoMonthsLater = new Date(today)
   twoMonthsLater.setUTCMonth(twoMonthsLater.getUTCMonth() + 2)
 
-  const [oneOffEvents, activeRules, allExceptions] = await Promise.all([
-    // One-off events: date >= today, or dateless announcements
+  const [oneOffEvents, activeRules, futureExceptions] = await Promise.all([
     db
       .select()
       .from(events)
       .where(or(isNull(events.date), gte(events.date, todayStr))),
-    // Active recurring rules
     db.select().from(recurringRules).where(eq(recurringRules.active, true)),
-    // All exceptions (table is small; no subquery needed)
-    db.select().from(recurringExceptions),
+    db.select().from(recurringExceptions).where(gte(recurringExceptions.exceptionDate, todayStr)),
   ])
 
-  return { oneOffEvents, activeRules, allExceptions, today, twoMonthsLater }
+  return { oneOffEvents, activeRules, allExceptions: futureExceptions, today, twoMonthsLater }
 }
 
 export default async function CalendarPage({ params }: PageProps) {
@@ -80,27 +78,11 @@ export default async function CalendarPage({ params }: PageProps) {
       </h1>
       <p className="text-gray-500 dark:text-gray-400 text-sm mb-8">{t('subtitle')}</p>
 
-      {/* Upcoming dated events */}
-      <section aria-labelledby="upcoming-heading">
-        <h2 id="upcoming-heading" className="text-lg font-semibold mb-4">
-          {t('upcomingEvents')}
-        </h2>
-        {datedEvents.length > 0 ? (
-          <EventList events={datedEvents} />
-        ) : (
-          <p className="text-gray-500 dark:text-gray-400 text-sm py-6">{t('noEvents')}</p>
-        )}
-      </section>
-
-      {/* Dateless announcements */}
-      {announcements.length > 0 && (
-        <section aria-labelledby="announcements-heading" className="mt-10">
-          <h2 id="announcements-heading" className="text-lg font-semibold mb-4">
-            {t('announcements')}
-          </h2>
-          <EventList events={announcements} />
-        </section>
-      )}
+      <EventsDisplay
+        datedEvents={datedEvents}
+        announcements={announcements}
+        locale={locale}
+      />
 
       {/* Fixed venue map */}
       <section className="mt-12">

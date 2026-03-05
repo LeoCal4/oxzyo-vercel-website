@@ -8,7 +8,7 @@ import {
   gameMechanics,
   gameCategories,
 } from '@/lib/db/schema'
-import { and, ilike, gte, lte, eq, isNull, or, count, asc, inArray, sql } from 'drizzle-orm'
+import { and, ilike, gte, lte, eq, isNull, or, count, asc, desc, inArray, sql } from 'drizzle-orm'
 import type { SQL } from 'drizzle-orm'
 import type { GameFilterParams, GamesQueryResult, GameWithRelations } from '@/types/games'
 import { PAGE_SIZE } from '@/types/games'
@@ -108,12 +108,26 @@ export async function fetchGames(params: GameFilterParams): Promise<GamesQueryRe
   const pageCount = Math.max(1, Math.ceil(totalNum / PAGE_SIZE))
   const offset = (page - 1) * PAGE_SIZE
 
+  // Determine sort order
+  const orderByClauses =
+    params.sort === 'titleDesc'
+      ? [desc(games.title)]
+      : params.sort === 'timesPlayed'
+        ? [desc(games.timesPlayed), asc(games.title)]
+        : params.sort === 'timesPlayedAsc'
+          ? [asc(games.timesPlayed), asc(games.title)]
+          : params.sort === 'minPlaytime'
+            ? [sql`${games.minPlaytime} ASC NULLS LAST`, asc(games.title)]
+            : params.sort === 'minPlaytimeDesc'
+              ? [sql`${games.minPlaytime} DESC NULLS LAST`, asc(games.title)]
+              : [asc(games.title)]
+
   // Get the ordered, paginated game IDs
   const rows = await db
     .select({ id: games.id })
     .from(games)
     .where(where)
-    .orderBy(asc(games.title))
+    .orderBy(...orderByClauses)
     .limit(PAGE_SIZE)
     .offset(offset)
 
