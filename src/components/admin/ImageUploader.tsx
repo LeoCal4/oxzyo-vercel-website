@@ -5,9 +5,10 @@ import { Button } from '@/components/ui/button'
 
 interface ImageUploaderProps {
   onUpload: (url: string) => void
+  token: string
 }
 
-export default function ImageUploader({ onUpload }: ImageUploaderProps) {
+export default function ImageUploader({ onUpload, token }: ImageUploaderProps) {
   const [uploading, setUploading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -20,6 +21,7 @@ export default function ImageUploader({ onUpload }: ImageUploaderProps) {
       formData.append('file', file)
       const res = await fetch('/api/admin/upload', {
         method: 'POST',
+        headers: { 'x-admin-token': token },
         body: formData,
       })
       const data = await res.json()

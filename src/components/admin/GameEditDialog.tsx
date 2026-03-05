@@ -166,7 +166,7 @@ export default function GameEditDialog({ game, token, onClose, onSaved }: GameEd
                 placeholder="https://… or upload below"
                 className="bg-gray-800 border-gray-700 text-gray-100 placeholder:text-gray-600 mb-2"
               />
-              <ImageUploader onUpload={(url) => setImageOverride(url)} />
+              <ImageUploader token={token} onUpload={(url) => setImageOverride(url)} />
               {imageOverride && (
                 <div className="mt-2">
                   {/* eslint-disable-next-line @next/next/no-img-element */}

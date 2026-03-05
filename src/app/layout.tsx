@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   description: "Il club di giochi da tavolo di Pisa",
   openGraph: {
     title: "OxzyO - Orizzonti Ludici",
-    description: "Il club di giochi da tavolo di Pisa",
+    description: "Associazione Ludica - Tana del Goblin di Pisa",
     siteName: "OxzyO - Orizzonti Ludici",
     images: [
       {

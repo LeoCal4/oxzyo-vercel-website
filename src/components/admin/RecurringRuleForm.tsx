@@ -386,7 +386,7 @@ export default function RecurringRuleForm({
           placeholder="https://… or upload below"
           className="bg-gray-800 border-gray-700 text-gray-100 placeholder:text-gray-600 mb-2"
         />
-        <ImageUploader onUpload={(url) => setImageUrl(url)} />
+        <ImageUploader token={token} onUpload={(url) => setImageUrl(url)} />
       </div>
 
       <div className="flex justify-end gap-2 pt-2">
