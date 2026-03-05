@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useTranslations } from 'next-intl'
 import { LayoutGrid, List } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { GameCard } from './GameCard'
@@ -18,6 +19,7 @@ type Props = {
 }
 
 export function GameViewToggle({ games }: Props) {
+  const t = useTranslations('games')
   const [view, setView] = useState<View>('grid')
   const [mounted, setMounted] = useState(false)
 
@@ -39,7 +41,7 @@ export function GameViewToggle({ games }: Props) {
         <div className="flex rounded-lg border border-gray-200 overflow-hidden">
           <button
             onClick={() => switchView('grid')}
-            aria-label="Vista griglia"
+            aria-label={t('viewGrid')}
             aria-pressed={view === 'grid'}
             className={cn(
               'p-2 transition-colors',
@@ -50,7 +52,7 @@ export function GameViewToggle({ games }: Props) {
           </button>
           <button
             onClick={() => switchView('list')}
-            aria-label="Vista lista"
+            aria-label={t('viewList')}
             aria-pressed={view === 'list'}
             className={cn(
               'p-2 transition-colors',

@@ -31,7 +31,32 @@
   },
   "games": {
     "title": "Ludoteca",
-    "description": "Esplora la ludoteca di OxzyO – oltre 600 giochi da tavolo disponibili."
+    "description": "Esplora la ludoteca di OxzyO – oltre 600 giochi da tavolo disponibili.",
+    "notFound": "Nessun gioco trovato",
+    "noResultsHint": "Prova a modificare i filtri.",
+    "itemCount": "{count, plural, one {# gioco} other {# giochi}}",
+    "filterSearch": "Cerca giochi...",
+    "filterPlayers": "Giocatori",
+    "filterPlayersPlaceholder": "Es. 4",
+    "filterPlaytime": "Durata (minuti)",
+    "filterMin": "Min",
+    "filterMax": "Max",
+    "filterWeight": "Complessità (1–5)",
+    "filterMechanics": "Meccaniche",
+    "filterCategories": "Categorie",
+    "filterDesigners": "Autori",
+    "filterStaffPick": "Solo Staff Pick",
+    "filterReset": "Rimuovi filtri",
+    "filterHeading": "Filtri",
+    "previousPage": "Pagina precedente",
+    "pageLabel": "Pagina {page}",
+    "nextPage": "Pagina successiva",
+    "viewGrid": "Vista griglia",
+    "viewList": "Vista lista",
+    "weightLight": "Leggero",
+    "weightMedium": "Medio",
+    "weightHeavy": "Pesante",
+    "lendingBadge": "In prestito"
   },
   "nav": {
     "home": "Home",
@@ -48,7 +73,8 @@
     "loading": "Caricamento...",
     "error": "Si è verificato un errore",
     "back": "Indietro",
-    "seeAll": "Vedi tutti"
+    "seeAll": "Vedi tutti",
+    "contentComing": "Contenuto in arrivo."
   },
   "calendar": {
     "title": "Calendario",

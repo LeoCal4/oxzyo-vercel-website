@@ -1,15 +1,11 @@
+'use client'
+
 import Image from 'next/image'
+import { useTranslations } from 'next-intl'
 import { Users, Clock, BookOpen } from 'lucide-react'
 import { StaffPickBadge } from '@/components/StaffPickBadge'
 import { cn, decodeHtml } from '@/lib/utils'
 import type { GameWithRelations } from '@/types/games'
-
-function weightLabel(weight: number | null): string {
-  if (weight == null) return ''
-  if (weight < 2) return 'Leggero'
-  if (weight < 3.5) return 'Medio'
-  return 'Pesante'
-}
 
 function weightColor(weight: number | null): string {
   if (weight == null) return 'bg-gray-100 text-gray-600'
@@ -36,10 +32,18 @@ type Props = {
 }
 
 export function GameCard({ game, className }: Props) {
+  const t = useTranslations('games')
   const title = decodeHtml(game.titleOverride ?? game.title)
   const imageUrl = game.imageOverride ?? game.imageUrl
 
   const bggUrl = game.bggId ? `https://boardgamegeek.com/boardgame/${game.bggId}` : null
+
+  function weightLabel(weight: number | null): string {
+    if (weight == null) return ''
+    if (weight < 2) return t('weightLight')
+    if (weight < 3.5) return t('weightMedium')
+    return t('weightHeavy')
+  }
 
   return (
     <div
@@ -70,7 +74,7 @@ export function GameCard({ game, className }: Props) {
         )}
         {game.lendingTo && (
           <div className="absolute top-2 right-2 rounded-full bg-black/60 px-2 py-0.5 text-xs text-white">
-            In prestito
+            {t('lendingBadge')}
           </div>
         )}
       </div>

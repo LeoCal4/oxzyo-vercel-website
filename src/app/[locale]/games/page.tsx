@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { getTranslations } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Suspense } from 'react'
 import { fetchGames, fetchFilterOptions } from '@/lib/games/query'
 
@@ -61,12 +61,13 @@ function parseParams(raw: Record<string, string | string[] | undefined>): GameFi
 
 async function GamesContent({ params }: { params: GameFilterParams }) {
   const { games, total, pageCount } = await fetchGames(params)
+  const t = await getTranslations('games')
 
   if (games.length === 0) {
     return (
       <div className="py-16 text-center text-gray-500">
-        <p className="text-lg font-medium">Nessun gioco trovato</p>
-        <p className="text-sm mt-1">Prova a modificare i filtri.</p>
+        <p className="text-lg font-medium">{t('notFound')}</p>
+        <p className="text-sm mt-1">{t('noResultsHint')}</p>
       </div>
     )
   }
@@ -79,9 +80,18 @@ async function GamesContent({ params }: { params: GameFilterParams }) {
   )
 }
 
-export default async function GamesPage({ searchParams }: { searchParams: SearchParams }) {
+export default async function GamesPage({
+  params,
+  searchParams,
+}: {
+  params: PageProps['params']
+  searchParams: SearchParams
+}) {
+  const { locale } = await params
+  setRequestLocale(locale)
   const rawParams = await searchParams
   const filterParams = parseParams(rawParams)
+  const t = await getTranslations('games')
 
   // Fetch filter options eagerly — fast query, needed for sidebar
   const filterOptions = await fetchFilterOptions()
@@ -89,7 +99,7 @@ export default async function GamesPage({ searchParams }: { searchParams: Search
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
       <h1 className="text-2xl font-bold font-[family-name:var(--font-poppins)] mb-6">
-        Ludoteca
+        {t('title')}
       </h1>
 
       <div className="flex gap-8">

@@ -1,6 +1,7 @@
 'use client'
 
 import { useRouter, usePathname, useSearchParams } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -11,6 +12,7 @@ type Props = {
 }
 
 export function GamePagination({ page, pageCount, total }: Props) {
+  const t = useTranslations('games')
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -40,14 +42,14 @@ export function GamePagination({ page, pageCount, total }: Props) {
   return (
     <div className="flex items-center justify-between mt-8">
       <p className="text-sm text-gray-500">
-        {total} gioch{total === 1 ? 'o' : 'i'}
+        {t('itemCount', { count: total })}
       </p>
 
       <div className="flex items-center gap-1">
         <button
           onClick={() => goTo(page - 1)}
           disabled={page <= 1}
-          aria-label="Pagina precedente"
+          aria-label={t('previousPage')}
           className="p-2 rounded-lg border border-gray-200 disabled:opacity-40 hover:bg-gray-50 transition-colors"
         >
           <ChevronLeft className="h-4 w-4" />
@@ -62,7 +64,7 @@ export function GamePagination({ page, pageCount, total }: Props) {
             <button
               key={p}
               onClick={() => goTo(p)}
-              aria-label={`Pagina ${p}`}
+              aria-label={t('pageLabel', { page: p })}
               aria-current={p === page ? 'page' : undefined}
               className={cn(
                 'h-9 w-9 rounded-lg text-sm font-medium transition-colors',
@@ -79,7 +81,7 @@ export function GamePagination({ page, pageCount, total }: Props) {
         <button
           onClick={() => goTo(page + 1)}
           disabled={page >= pageCount}
-          aria-label="Pagina successiva"
+          aria-label={t('nextPage')}
           className="p-2 rounded-lg border border-gray-200 disabled:opacity-40 hover:bg-gray-50 transition-colors"
         >
           <ChevronRight className="h-4 w-4" />

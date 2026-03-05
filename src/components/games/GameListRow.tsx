@@ -1,15 +1,11 @@
+'use client'
+
 import Image from 'next/image'
+import { useTranslations } from 'next-intl'
 import { Users, Clock, BookOpen } from 'lucide-react'
 import { StaffPickBadge } from '@/components/StaffPickBadge'
 import { cn, decodeHtml } from '@/lib/utils'
 import type { GameWithRelations } from '@/types/games'
-
-function weightLabel(weight: number | null): string {
-  if (weight == null) return ''
-  if (weight < 2) return 'Leggero'
-  if (weight < 3.5) return 'Medio'
-  return 'Pesante'
-}
 
 function weightColor(weight: number | null): string {
   if (weight == null) return 'bg-gray-100 text-gray-600'
@@ -24,8 +20,16 @@ type Props = {
 }
 
 export function GameListRow({ game, className }: Props) {
+  const t = useTranslations('games')
   const title = decodeHtml(game.titleOverride ?? game.title)
   const imageUrl = game.imageOverride ?? game.imageUrl
+
+  function weightLabel(weight: number | null): string {
+    if (weight == null) return ''
+    if (weight < 2) return t('weightLight')
+    if (weight < 3.5) return t('weightMedium')
+    return t('weightHeavy')
+  }
 
   const players =
     game.minPlayers == null && game.maxPlayers == null
@@ -80,7 +84,7 @@ export function GameListRow({ game, className }: Props) {
           {game.staffPick && <StaffPickBadge />}
           {game.lendingTo && (
             <span className="rounded-full bg-gray-200 px-2 py-0.5 text-xs text-gray-600">
-              In prestito
+              {t('lendingBadge')}
             </span>
           )}
         </div>

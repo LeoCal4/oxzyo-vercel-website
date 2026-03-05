@@ -31,7 +31,32 @@
   },
   "games": {
     "title": "Games Library",
-    "description": "Explore OxzyO's games library – over 600 board games available."
+    "description": "Explore OxzyO's games library – over 600 board games available.",
+    "notFound": "No games found",
+    "noResultsHint": "Try adjusting the filters.",
+    "itemCount": "{count, plural, one {# game} other {# games}}",
+    "filterSearch": "Search games...",
+    "filterPlayers": "Players",
+    "filterPlayersPlaceholder": "E.g. 4",
+    "filterPlaytime": "Duration (minutes)",
+    "filterMin": "Min",
+    "filterMax": "Max",
+    "filterWeight": "Complexity (1–5)",
+    "filterMechanics": "Mechanics",
+    "filterCategories": "Categories",
+    "filterDesigners": "Designers",
+    "filterStaffPick": "Staff Picks only",
+    "filterReset": "Clear filters",
+    "filterHeading": "Filters",
+    "previousPage": "Previous page",
+    "pageLabel": "Page {page}",
+    "nextPage": "Next page",
+    "viewGrid": "Grid view",
+    "viewList": "List view",
+    "weightLight": "Light",
+    "weightMedium": "Medium",
+    "weightHeavy": "Heavy",
+    "lendingBadge": "On loan"
   },
   "nav": {
     "home": "Home",
@@ -48,7 +73,8 @@
     "loading": "Loading...",
     "error": "An error occurred",
     "back": "Back",
-    "seeAll": "See all"
+    "seeAll": "See all",
+    "contentComing": "Content coming soon."
   },
   "calendar": {
     "title": "Calendar",

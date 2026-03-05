@@ -1,7 +1,8 @@
 'use client'
 
-import { useRouter, usePathname, useSearchParams } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import { useCallback, useTransition, useState } from 'react'
+import { useTranslations } from 'next-intl'
 import { Search, SlidersHorizontal, X } from 'lucide-react'
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet'
 import {
@@ -21,16 +22,29 @@ type Props = {
   currentParams: Record<string, string | string[] | undefined>
 }
 
-function useFilterRouter() {
+function str(v: string | string[] | undefined): string {
+  return Array.isArray(v) ? (v[0] ?? '') : (v ?? '')
+}
+
+function arr(v: string | string[] | undefined): string[] {
+  if (!v) return []
+  return Array.isArray(v) ? v : [v]
+}
+
+function useFilterRouter(currentParams: Record<string, string | string[] | undefined>) {
   const router = useRouter()
   const pathname = usePathname()
-  const searchParams = useSearchParams()
   const [, startTransition] = useTransition()
 
   return useCallback(
     (key: string, value: string | string[] | null) => {
-      const params = new URLSearchParams(searchParams.toString())
-      params.delete('page') // reset to page 1 on filter change
+      const params = new URLSearchParams()
+      for (const [k, v] of Object.entries(currentParams)) {
+        if (v == null) continue
+        if (Array.isArray(v)) v.forEach((val) => params.append(k, val))
+        else params.set(k, v)
+      }
+      params.delete('page')
 
       if (value == null || value === '' || (Array.isArray(value) && value.length === 0)) {
         params.delete(key)
@@ -45,7 +59,7 @@ function useFilterRouter() {
         router.push(`${pathname}?${params.toString()}`)
       })
     },
-    [router, pathname, searchParams],
+    [router, pathname, currentParams],
   )
 }
 
@@ -94,33 +108,24 @@ function MultiSelect({
   )
 }
 
-function FiltersForm({ mechanics, categories, designers, currentParams, onApply }: Props & { onApply?: () => void }) {
-  const updateFilter = useFilterRouter()
-  const searchParams = useSearchParams()
+function FiltersForm({ mechanics, categories, designers, currentParams }: Props) {
+  const t = useTranslations('games')
+  const updateFilter = useFilterRouter(currentParams)
 
-  const search = searchParams.get('search') ?? ''
-  const players = searchParams.get('players') ?? ''
-  const minTime = searchParams.get('minTime') ?? ''
-  const maxTime = searchParams.get('maxTime') ?? ''
-  const minWeight = searchParams.get('minWeight') ?? ''
-  const maxWeight = searchParams.get('maxWeight') ?? ''
-  const selectedMechanics = searchParams.getAll('mechanics')
-  const selectedCategories = searchParams.getAll('categories')
-  const selectedDesigners = searchParams.getAll('designers')
-  const staffPick = searchParams.get('staffPick') === 'true'
+  const search = str(currentParams.search)
+  const players = str(currentParams.players)
+  const minTime = str(currentParams.minTime)
+  const maxTime = str(currentParams.maxTime)
+  const minWeight = str(currentParams.minWeight)
+  const maxWeight = str(currentParams.maxWeight)
+  const selectedMechanics = arr(currentParams.mechanics)
+  const selectedCategories = arr(currentParams.categories)
+  const selectedDesigners = arr(currentParams.designers)
+  const staffPick = str(currentParams.staffPick) === 'true'
 
   const hasFilters =
     search || players || minTime || maxTime || minWeight || maxWeight ||
     selectedMechanics.length || selectedCategories.length || selectedDesigners.length || staffPick
-
-  function resetAll() {
-    const router = useFilterRouter
-    const params = new URLSearchParams()
-    window.location.search = ''
-    const pathname = window.location.pathname
-    window.history.pushState({}, '', pathname)
-    window.location.reload()
-  }
 
   return (
     <div className="flex flex-col gap-4">
@@ -129,7 +134,7 @@ function FiltersForm({ mechanics, categories, designers, currentParams, onApply 
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
         <input
           type="text"
-          placeholder="Cerca giochi..."
+          placeholder={t('filterSearch')}
           defaultValue={search}
           className="w-full rounded-lg border border-gray-200 pl-9 pr-3 py-2 text-sm outline-none focus:border-[#fd7c01] focus:ring-1 focus:ring-[#fd7c01]"
           onChange={(e) => updateFilter('search', e.target.value || null)}
@@ -138,12 +143,12 @@ function FiltersForm({ mechanics, categories, designers, currentParams, onApply 
 
       {/* Players */}
       <div>
-        <label className="block text-xs font-medium text-gray-600 mb-1">Giocatori</label>
+        <label className="block text-xs font-medium text-gray-600 mb-1">{t('filterPlayers')}</label>
         <input
           type="number"
           min={1}
           max={20}
-          placeholder="Es. 4"
+          placeholder={t('filterPlayersPlaceholder')}
           defaultValue={players}
           className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-[#fd7c01] focus:ring-1 focus:ring-[#fd7c01]"
           onChange={(e) => updateFilter('players', e.target.value || null)}
@@ -152,12 +157,12 @@ function FiltersForm({ mechanics, categories, designers, currentParams, onApply 
 
       {/* Playtime */}
       <div>
-        <label className="block text-xs font-medium text-gray-600 mb-1">Durata (minuti)</label>
+        <label className="block text-xs font-medium text-gray-600 mb-1">{t('filterPlaytime')}</label>
         <div className="flex gap-2">
           <input
             type="number"
             min={0}
-            placeholder="Min"
+            placeholder={t('filterMin')}
             defaultValue={minTime}
             className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-[#fd7c01] focus:ring-1 focus:ring-[#fd7c01]"
             onChange={(e) => updateFilter('minTime', e.target.value || null)}
@@ -165,7 +170,7 @@ function FiltersForm({ mechanics, categories, designers, currentParams, onApply 
           <input
             type="number"
             min={0}
-            placeholder="Max"
+            placeholder={t('filterMax')}
             defaultValue={maxTime}
             className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-[#fd7c01] focus:ring-1 focus:ring-[#fd7c01]"
             onChange={(e) => updateFilter('maxTime', e.target.value || null)}
@@ -176,7 +181,7 @@ function FiltersForm({ mechanics, categories, designers, currentParams, onApply 
       {/* Weight */}
       <div>
         <label className="block text-xs font-medium text-gray-600 mb-1">
-          Complessità (1–5)
+          {t('filterWeight')}
         </label>
         <div className="flex gap-2">
           <input
@@ -184,7 +189,7 @@ function FiltersForm({ mechanics, categories, designers, currentParams, onApply 
             min={1}
             max={5}
             step={0.5}
-            placeholder="Min"
+            placeholder={t('filterMin')}
             defaultValue={minWeight}
             className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-[#fd7c01] focus:ring-1 focus:ring-[#fd7c01]"
             onChange={(e) => updateFilter('minWeight', e.target.value || null)}
@@ -194,7 +199,7 @@ function FiltersForm({ mechanics, categories, designers, currentParams, onApply 
             min={1}
             max={5}
             step={0.5}
-            placeholder="Max"
+            placeholder={t('filterMax')}
             defaultValue={maxWeight}
             className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-[#fd7c01] focus:ring-1 focus:ring-[#fd7c01]"
             onChange={(e) => updateFilter('maxWeight', e.target.value || null)}
@@ -205,9 +210,9 @@ function FiltersForm({ mechanics, categories, designers, currentParams, onApply 
       {/* Mechanics */}
       {mechanics.length > 0 && (
         <div>
-          <label className="block text-xs font-medium text-gray-600 mb-1">Meccaniche</label>
+          <label className="block text-xs font-medium text-gray-600 mb-1">{t('filterMechanics')}</label>
           <MultiSelect
-            label="Meccaniche"
+            label={t('filterMechanics')}
             options={mechanics}
             selectedIds={selectedMechanics}
             onChange={(ids) => updateFilter('mechanics', ids)}
@@ -218,9 +223,9 @@ function FiltersForm({ mechanics, categories, designers, currentParams, onApply 
       {/* Categories */}
       {categories.length > 0 && (
         <div>
-          <label className="block text-xs font-medium text-gray-600 mb-1">Categorie</label>
+          <label className="block text-xs font-medium text-gray-600 mb-1">{t('filterCategories')}</label>
           <MultiSelect
-            label="Categorie"
+            label={t('filterCategories')}
             options={categories}
             selectedIds={selectedCategories}
             onChange={(ids) => updateFilter('categories', ids)}
@@ -231,9 +236,9 @@ function FiltersForm({ mechanics, categories, designers, currentParams, onApply 
       {/* Designers */}
       {designers.length > 0 && (
         <div>
-          <label className="block text-xs font-medium text-gray-600 mb-1">Autori</label>
+          <label className="block text-xs font-medium text-gray-600 mb-1">{t('filterDesigners')}</label>
           <MultiSelect
-            label="Autori"
+            label={t('filterDesigners')}
             options={designers}
             selectedIds={selectedDesigners}
             onChange={(ids) => updateFilter('designers', ids)}
@@ -249,17 +254,17 @@ function FiltersForm({ mechanics, categories, designers, currentParams, onApply 
           className="rounded border-gray-300 text-[#fd7c01] focus:ring-[#fd7c01]"
           onChange={(e) => updateFilter('staffPick', e.target.checked ? 'true' : null)}
         />
-        <span className="text-sm text-gray-700">Solo Staff Pick</span>
+        <span className="text-sm text-gray-700">{t('filterStaffPick')}</span>
       </label>
 
       {/* Reset */}
       {hasFilters && (
         <a
-          href={window?.location?.pathname ?? ''}
+          href={typeof window !== 'undefined' ? window.location.pathname : ''}
           className="flex items-center gap-1 text-sm text-red-500 hover:text-red-600"
         >
           <X className="h-3.5 w-3.5" />
-          Rimuovi filtri
+          {t('filterReset')}
         </a>
       )}
     </div>
@@ -267,6 +272,7 @@ function FiltersForm({ mechanics, categories, designers, currentParams, onApply 
 }
 
 export function GameFilters(props: Props) {
+  const t = useTranslations('games')
   const [open, setOpen] = useState(false)
 
   return (
@@ -274,7 +280,7 @@ export function GameFilters(props: Props) {
       {/* Desktop sidebar — hidden on mobile */}
       <aside className="hidden lg:block w-56 shrink-0">
         <div className="sticky top-20">
-          <h2 className="text-sm font-semibold text-gray-700 mb-4">Filtri</h2>
+          <h2 className="text-sm font-semibold text-gray-700 mb-4">{t('filterHeading')}</h2>
           <FiltersForm {...props} />
         </div>
       </aside>
@@ -285,12 +291,12 @@ export function GameFilters(props: Props) {
           <SheetTrigger asChild>
             <button className="flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium hover:bg-gray-50">
               <SlidersHorizontal className="h-4 w-4" />
-              Filtri
+              {t('filterHeading')}
             </button>
           </SheetTrigger>
           <SheetContent side="left" className="w-72 overflow-y-auto pt-12">
-            <SheetTitle className="text-sm font-semibold text-gray-700 mb-4">Filtri</SheetTitle>
-            <FiltersForm {...props} onApply={() => setOpen(false)} />
+            <SheetTitle className="text-sm font-semibold text-gray-700 mb-4">{t('filterHeading')}</SheetTitle>
+            <FiltersForm {...props} />
           </SheetContent>
         </Sheet>
       </div>

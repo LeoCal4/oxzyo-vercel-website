@@ -1,7 +1,7 @@
 export const revalidate = 86400
 
 import Image from 'next/image'
-import { getTranslations, getLocale } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { getContentBlocks } from '@/lib/content/blocks'
 import { MarkdownRenderer } from '@/components/MarkdownRenderer'
 import type { Locale } from '@/types/content'
@@ -28,9 +28,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-export default async function AboutPage() {
-  const locale = (await getLocale()) as Locale
+export default async function AboutPage({ params }: Props) {
+  const { locale: localeStr } = await params
+  const locale = localeStr as Locale
+  setRequestLocale(locale)
   const t = await getTranslations('about')
+  const tCommon = await getTranslations('common')
 
   const contentData = await getContentBlocks(['about.story', 'about.values'], locale)
   const story = contentData['about.story'] ?? ''
@@ -53,7 +56,7 @@ export default async function AboutPage() {
         {story ? (
           <MarkdownRenderer content={story} />
         ) : (
-          <p className="text-gray-500 text-sm italic">Contenuto in arrivo.</p>
+          <p className="text-gray-500 text-sm italic">{tCommon('contentComing')}</p>
         )}
       </section>
 
@@ -96,7 +99,7 @@ export default async function AboutPage() {
         {values ? (
           <MarkdownRenderer content={values} />
         ) : (
-          <p className="text-gray-500 text-sm italic">Contenuto in arrivo.</p>
+          <p className="text-gray-500 text-sm italic">{tCommon('contentComing')}</p>
         )}
       </section>
     </div>

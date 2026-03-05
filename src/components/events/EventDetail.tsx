@@ -8,18 +8,19 @@ import {
   DialogDescription,
 } from '@/components/ui/dialog'
 import { Badge } from '@/components/ui/badge'
+import { useTranslations, useLocale } from 'next-intl'
 import { Clock, MapPin } from 'lucide-react'
 import { MapEmbed } from '@/components/MapEmbed'
 import { MarkdownRenderer } from '@/components/MarkdownRenderer'
 import { cn } from '@/lib/utils'
 import type { DisplayEvent } from '@/types/events'
 
-function eventTypeBadge(type: DisplayEvent['eventType']) {
+function eventTypeBadgeClass(type: DisplayEvent['eventType']): string {
   switch (type) {
-    case 'game_night':   return { label: 'Serata Giochi',   className: 'bg-[#0076fb] text-white hover:bg-[#0076fb]' }
-    case 'tournament':   return { label: 'Torneo',          className: 'bg-[#fd7c01] text-white hover:bg-[#fd7c01]' }
-    case 'special':      return { label: 'Evento Speciale', className: 'bg-purple-600 text-white hover:bg-purple-600' }
-    case 'announcement': return { label: 'Annuncio',        className: 'bg-gray-500 text-white hover:bg-gray-500' }
+    case 'game_night':   return 'bg-[#0076fb] text-white hover:bg-[#0076fb]'
+    case 'tournament':   return 'bg-[#fd7c01] text-white hover:bg-[#fd7c01]'
+    case 'special':      return 'bg-purple-600 text-white hover:bg-purple-600'
+    case 'announcement': return 'bg-gray-500 text-white hover:bg-gray-500'
   }
 }
 
@@ -36,23 +37,28 @@ type Props = {
 }
 
 export function EventDetail({ event, open, onOpenChange }: Props) {
-  const badge = eventTypeBadge(event.eventType)
+  const t = useTranslations('calendar')
+  const locale = useLocale()
+  const badgeClass = eventTypeBadgeClass(event.eventType)
+  const badgeLabel = t(`eventTypes.${event.eventType}` as Parameters<typeof t>[0])
   const startTime = formatTime(event.startTime)
   const endTime = formatTime(event.endTime)
+
+  const bcp47 = locale === 'it' ? 'it-IT' : 'en-GB'
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-lg max-h-[85vh] overflow-y-auto">
         <DialogHeader>
           <div className="flex flex-wrap gap-2 mb-2">
-            <Badge className={cn('text-xs', badge.className)}>{badge.label}</Badge>
+            <Badge className={cn('text-xs', badgeClass)}>{badgeLabel}</Badge>
           </div>
           <DialogTitle className="text-left font-[family-name:var(--font-poppins)]">
             {event.title}
           </DialogTitle>
           {event.date && (
             <DialogDescription className="text-left">
-              {event.date.toLocaleDateString('it-IT', {
+              {event.date.toLocaleDateString(bcp47, {
                 weekday: 'long',
                 day: 'numeric',
                 month: 'long',
@@ -79,7 +85,7 @@ export function EventDetail({ event, open, onOpenChange }: Props) {
                 <MapPin className="h-4 w-4 text-[#fd7c01] flex-shrink-0" />
                 <span>
                   {event.useFixedVenue
-                    ? 'Via Bonanno Pisano 20, Pisa (sede del club)'
+                    ? t('fixedVenueFull')
                     : event.locationText}
                 </span>
               </div>

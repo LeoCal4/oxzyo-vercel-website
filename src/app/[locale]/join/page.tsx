@@ -1,6 +1,6 @@
 export const revalidate = 86400
 
-import { getTranslations, getLocale } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { getContentBlocks } from '@/lib/content/blocks'
 import { MarkdownRenderer } from '@/components/MarkdownRenderer'
 import type { Locale } from '@/types/content'
@@ -27,9 +27,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-export default async function JoinPage() {
-  const locale = (await getLocale()) as Locale
+export default async function JoinPage({ params }: Props) {
+  const { locale: localeStr } = await params
+  const locale = localeStr as Locale
+  setRequestLocale(locale)
   const t = await getTranslations('join')
+  const tCommon = await getTranslations('common')
 
   const contentData = await getContentBlocks(
     ['join.process', 'join.benefits', 'join.fee_note'],
@@ -56,7 +59,7 @@ export default async function JoinPage() {
         {process ? (
           <MarkdownRenderer content={process} />
         ) : (
-          <p className="text-gray-500 text-sm italic">Contenuto in arrivo.</p>
+          <p className="text-gray-500 text-sm italic">{tCommon('contentComing')}</p>
         )}
       </section>
 
@@ -84,7 +87,7 @@ export default async function JoinPage() {
         {benefits ? (
           <MarkdownRenderer content={benefits} />
         ) : (
-          <p className="text-gray-500 text-sm italic">Contenuto in arrivo.</p>
+          <p className="text-gray-500 text-sm italic">{tCommon('contentComing')}</p>
         )}
       </section>
     </div>

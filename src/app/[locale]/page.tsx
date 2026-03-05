@@ -2,7 +2,7 @@ export const revalidate = 3600
 
 import Image from 'next/image'
 import { Mail, Instagram, Facebook } from 'lucide-react'
-import { getTranslations, getLocale } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { db } from '@/lib/db'
 import { events, recurringRules, recurringExceptions, games } from '@/lib/db/schema'
 import { gte, isNull, or, eq, asc } from 'drizzle-orm'
@@ -93,8 +93,10 @@ async function fetchHomePageData(locale: Locale) {
   return { upcomingEvents, staffPicks, contentData }
 }
 
-export default async function HomePage() {
-  const locale = (await getLocale()) as Locale
+export default async function HomePage({ params }: Props) {
+  const { locale: localeStr } = await params
+  const locale = localeStr as Locale
+  setRequestLocale(locale)
   const t = await getTranslations('homepage')
   const { upcomingEvents, staffPicks, contentData } = await fetchHomePageData(locale)
 

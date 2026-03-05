@@ -4,7 +4,7 @@ import type { Metadata } from 'next'
 import { db } from '@/lib/db'
 import { events, recurringRules, recurringExceptions } from '@/lib/db/schema'
 import { gte, isNull, or, eq } from 'drizzle-orm'
-import { getLocale, getTranslations } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 type PageProps = { params: Promise<{ locale: string }> }
 
@@ -53,8 +53,11 @@ async function fetchCalendarData() {
   return { oneOffEvents, activeRules, allExceptions, today, twoMonthsLater }
 }
 
-export default async function CalendarPage() {
-  const locale = (await getLocale()) as Locale
+export default async function CalendarPage({ params }: PageProps) {
+  const { locale: localeStr } = await params
+  const locale = localeStr as Locale
+  setRequestLocale(locale)
+  const t = await getTranslations('calendar')
   const { oneOffEvents, activeRules, allExceptions, today, twoMonthsLater } =
     await fetchCalendarData()
 
@@ -73,19 +76,19 @@ export default async function CalendarPage() {
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8">
       <h1 className="text-2xl font-bold font-[family-name:var(--font-poppins)] mb-1">
-        Calendario
+        {t('title')}
       </h1>
-      <p className="text-gray-500 text-sm mb-8">Prossimi eventi e serate del club</p>
+      <p className="text-gray-500 text-sm mb-8">{t('subtitle')}</p>
 
       {/* Upcoming dated events */}
       <section aria-labelledby="upcoming-heading">
         <h2 id="upcoming-heading" className="text-lg font-semibold mb-4">
-          Prossimi eventi
+          {t('upcomingEvents')}
         </h2>
         {datedEvents.length > 0 ? (
           <EventList events={datedEvents} />
         ) : (
-          <p className="text-gray-500 text-sm py-6">Nessun evento in programma.</p>
+          <p className="text-gray-500 text-sm py-6">{t('noEvents')}</p>
         )}
       </section>
 
@@ -93,7 +96,7 @@ export default async function CalendarPage() {
       {announcements.length > 0 && (
         <section aria-labelledby="announcements-heading" className="mt-10">
           <h2 id="announcements-heading" className="text-lg font-semibold mb-4">
-            Annunci
+            {t('announcements')}
           </h2>
           <EventList events={announcements} />
         </section>
@@ -101,8 +104,8 @@ export default async function CalendarPage() {
 
       {/* Fixed venue map */}
       <section className="mt-12">
-        <h2 className="text-lg font-semibold mb-1">La nostra sede</h2>
-        <p className="text-sm text-gray-500 mb-3">Via Bonanno Pisano 20, Pisa</p>
+        <h2 className="text-lg font-semibold mb-1">{t('venue')}</h2>
+        <p className="text-sm text-gray-500 mb-3">{t('venueAddress')}</p>
         <MapEmbed />
       </section>
     </div>

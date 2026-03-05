@@ -1,8 +1,7 @@
 'use client'
 
 import { useLocale } from 'next-intl'
-import { useRouter, usePathname } from '@/lib/i18n/navigation'
-import { useTransition } from 'react'
+import { usePathname } from '@/lib/i18n/navigation'
 import { cn } from '@/lib/utils'
 
 type SwitcherProps = {
@@ -11,15 +10,13 @@ type SwitcherProps = {
 
 export function LocaleSwitcher({ className }: SwitcherProps) {
   const locale = useLocale()
-  const router = useRouter()
-  const pathname = usePathname()
-  const [isPending, startTransition] = useTransition()
+  const pathname = usePathname() // locale-stripped, e.g. '/about'
 
   function switchLocale(newLocale: 'it' | 'en') {
     if (newLocale === locale) return
-    startTransition(() => {
-      router.replace(pathname, { locale: newLocale })
-    })
+    // Hard navigation so the server re-renders everything with the new locale,
+    // bypassing the Next.js Router Cache which can otherwise serve a stale layout.
+    window.location.href = `/${newLocale}${pathname}`
   }
 
   return (
@@ -35,7 +32,6 @@ export function LocaleSwitcher({ className }: SwitcherProps) {
         )}
         aria-label="Italiano"
         aria-pressed={locale === 'it'}
-        disabled={isPending}
       >
         🇮🇹
       </button>
@@ -47,7 +43,6 @@ export function LocaleSwitcher({ className }: SwitcherProps) {
         )}
         aria-label="English"
         aria-pressed={locale === 'en'}
-        disabled={isPending}
       >
         🇬🇧
       </button>

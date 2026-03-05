@@ -1,18 +1,19 @@
 'use client'
 
 import { useState } from 'react'
+import { useTranslations, useLocale } from 'next-intl'
 import { Clock, MapPin, ChevronRight } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
 import { EventDetail } from './EventDetail'
 import type { DisplayEvent } from '@/types/events'
 
-function eventTypeBadge(type: DisplayEvent['eventType']) {
+function eventTypeBadgeClass(type: DisplayEvent['eventType']): string {
   switch (type) {
-    case 'game_night':   return { label: 'Serata Giochi',   className: 'bg-[#0076fb] text-white hover:bg-[#0076fb]' }
-    case 'tournament':   return { label: 'Torneo',          className: 'bg-[#fd7c01] text-white hover:bg-[#fd7c01]' }
-    case 'special':      return { label: 'Evento Speciale', className: 'bg-purple-600 text-white hover:bg-purple-600' }
-    case 'announcement': return { label: 'Annuncio',        className: 'bg-gray-500 text-white hover:bg-gray-500' }
+    case 'game_night':   return 'bg-[#0076fb] text-white hover:bg-[#0076fb]'
+    case 'tournament':   return 'bg-[#fd7c01] text-white hover:bg-[#fd7c01]'
+    case 'special':      return 'bg-purple-600 text-white hover:bg-purple-600'
+    case 'announcement': return 'bg-gray-500 text-white hover:bg-gray-500'
   }
 }
 
@@ -28,8 +29,11 @@ type Props = {
 }
 
 export function EventCard({ event, className }: Props) {
+  const t = useTranslations('calendar')
+  const locale = useLocale()
   const [open, setOpen] = useState(false)
-  const badge = eventTypeBadge(event.eventType)
+  const badgeClass = eventTypeBadgeClass(event.eventType)
+  const badgeLabel = t(`eventTypes.${event.eventType}` as Parameters<typeof t>[0])
   const startTime = formatTime(event.startTime)
   const endTime = formatTime(event.endTime)
 
@@ -42,7 +46,7 @@ export function EventCard({ event, className }: Props) {
           'hover:shadow-md hover:border-[#fd7c01]/40 transition-all',
           className,
         )}
-        aria-label={`Apri dettagli: ${event.title}`}
+        aria-label={t('openDetails', { title: event.title })}
       >
         {/* Date column — only for dated events */}
         {event.date && (
@@ -51,7 +55,7 @@ export function EventCard({ event, className }: Props) {
               {event.date.getUTCDate()}
             </span>
             <span className="text-xs uppercase text-gray-500 mt-0.5">
-              {event.date.toLocaleDateString('it-IT', { month: 'short' })}
+              {event.date.toLocaleDateString(locale === 'it' ? 'it-IT' : 'en-GB', { month: 'short' })}
             </span>
           </div>
         )}
@@ -59,7 +63,7 @@ export function EventCard({ event, className }: Props) {
         {/* Content */}
         <div className="flex-1 min-w-0">
           <div className="flex items-start justify-between gap-2 mb-1">
-            <Badge className={cn('text-xs', badge.className)}>{badge.label}</Badge>
+            <Badge className={cn('text-xs', badgeClass)}>{badgeLabel}</Badge>
             <ChevronRight className="h-4 w-4 text-gray-400 flex-shrink-0 group-hover:text-[#fd7c01] transition-colors" />
           </div>
 
@@ -82,7 +86,7 @@ export function EventCard({ event, className }: Props) {
             {(event.useFixedVenue || event.locationText) && (
               <span className="flex items-center gap-1">
                 <MapPin className="h-3 w-3" />
-                {event.useFixedVenue ? 'Sede del club' : event.locationText}
+                {event.useFixedVenue ? t('fixedVenue') : event.locationText}
               </span>
             )}
           </div>
