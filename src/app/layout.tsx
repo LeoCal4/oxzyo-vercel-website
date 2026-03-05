@@ -18,6 +18,25 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "OxzyO - Orizzonti Ludici",
   description: "Il club di giochi da tavolo di Pisa",
+  openGraph: {
+    title: "OxzyO - Orizzonti Ludici",
+    description: "Il club di giochi da tavolo di Pisa",
+    siteName: "OxzyO - Orizzonti Ludici",
+    images: [
+      {
+        url: "/images/og-default.png", // place your image here (1200×630 px recommended)
+        width: 1200,
+        height: 630,
+        alt: "OxzyO - Orizzonti Ludici",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "OxzyO - Orizzonti Ludici",
+    description: "Il club di giochi da tavolo di Pisa",
+    images: ["/images/og-default.png"],
+  },
 };
 
 export const viewport: Viewport = {
