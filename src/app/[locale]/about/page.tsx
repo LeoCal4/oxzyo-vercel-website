@@ -56,7 +56,7 @@ export default async function AboutPage({ params }: Props) {
         {story ? (
           <MarkdownRenderer content={story} />
         ) : (
-          <p className="text-gray-500 text-sm italic">{tCommon('contentComing')}</p>
+          <p className="text-gray-500 dark:text-gray-400 text-sm italic">{tCommon('contentComing')}</p>
         )}
       </section>
 
@@ -72,7 +72,7 @@ export default async function AboutPage({ params }: Props) {
           {Array.from({ length: 6 }).map((_, i) => (
             <div
               key={i}
-              className="relative aspect-square rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center"
+              className="relative aspect-square rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-700 flex items-center justify-center"
             >
               <Image
                 src="/images/oxzyo_logo_no_bg.png"
@@ -99,7 +99,7 @@ export default async function AboutPage({ params }: Props) {
         {values ? (
           <MarkdownRenderer content={values} />
         ) : (
-          <p className="text-gray-500 text-sm italic">{tCommon('contentComing')}</p>
+          <p className="text-gray-500 dark:text-gray-400 text-sm italic">{tCommon('contentComing')}</p>
         )}
       </section>
     </div>

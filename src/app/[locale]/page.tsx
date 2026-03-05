@@ -137,12 +137,12 @@ export default async function HomePage({ params }: Props) {
       {/* ── Intro ── */}
       {intro && (
         <section className="max-w-3xl mx-auto px-4 sm:px-6 py-14">
-          <MarkdownRenderer content={intro} className="text-gray-700" />
+          <MarkdownRenderer content={intro} className="text-gray-700 dark:text-gray-300" />
         </section>
       )}
 
       {/* ── Upcoming events ── */}
-      <section className="bg-gray-50 py-12">
+      <section className="bg-gray-50 dark:bg-gray-900 py-12">
         <div className="max-w-3xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-bold font-[family-name:var(--font-poppins)]">
@@ -158,7 +158,7 @@ export default async function HomePage({ params }: Props) {
           {upcomingEvents.length > 0 ? (
             <EventList events={upcomingEvents} />
           ) : (
-            <p className="text-gray-500 text-sm py-6">{t('noEvents')}</p>
+            <p className="text-gray-500 dark:text-gray-400 text-sm py-6">{t('noEvents')}</p>
           )}
         </div>
       </section>
@@ -184,7 +184,7 @@ export default async function HomePage({ params }: Props) {
               ))}
             </div>
           ) : (
-            <p className="text-gray-500 text-sm py-6">{t('noStaffPicks')}</p>
+            <p className="text-gray-500 dark:text-gray-400 text-sm py-6">{t('noStaffPicks')}</p>
           )}
         </div>
       </section>

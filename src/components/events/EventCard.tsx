@@ -42,8 +42,8 @@ export function EventCard({ event, className }: Props) {
       <button
         onClick={() => setOpen(true)}
         className={cn(
-          'w-full text-left group flex gap-4 rounded-xl border border-gray-200 bg-white p-4 shadow-sm',
-          'hover:shadow-md hover:border-[#fd7c01]/40 transition-all',
+          'w-full text-left group flex gap-4 rounded-xl border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800',
+          'hover:shadow-md hover:border-[#fd7c01]/40 transition-all dark:hover:border-[#fd7c01]/40',
           className,
         )}
         aria-label={t('openDetails', { title: event.title })}
@@ -54,7 +54,7 @@ export function EventCard({ event, className }: Props) {
             <span className="text-2xl font-bold font-[family-name:var(--font-poppins)] text-[#fd7c01] leading-none">
               {event.date.getUTCDate()}
             </span>
-            <span className="text-xs uppercase text-gray-500 mt-0.5">
+            <span className="text-xs uppercase text-gray-500 dark:text-gray-400 mt-0.5">
               {event.date.toLocaleDateString(locale === 'it' ? 'it-IT' : 'en-GB', { month: 'short' })}
             </span>
           </div>
@@ -72,10 +72,10 @@ export function EventCard({ event, className }: Props) {
           </h3>
 
           {event.description && (
-            <p className="text-xs text-gray-500 line-clamp-2 mb-2">{event.description}</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400 line-clamp-2 mb-2">{event.description}</p>
           )}
 
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-gray-500">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-gray-500 dark:text-gray-400">
             {startTime && (
               <span className="flex items-center gap-1">
                 <Clock className="h-3 w-3" />

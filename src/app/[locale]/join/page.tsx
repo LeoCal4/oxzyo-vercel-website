@@ -59,7 +59,7 @@ export default async function JoinPage({ params }: Props) {
         {process ? (
           <MarkdownRenderer content={process} />
         ) : (
-          <p className="text-gray-500 text-sm italic">{tCommon('contentComing')}</p>
+          <p className="text-gray-500 dark:text-gray-400 text-sm italic">{tCommon('contentComing')}</p>
         )}
       </section>
 
@@ -72,7 +72,7 @@ export default async function JoinPage({ params }: Props) {
           >
             {t('fee')}
           </h2>
-          <p className="text-gray-700">{feeNote}</p>
+          <p className="text-gray-700 dark:text-gray-300">{feeNote}</p>
         </section>
       )}
 
@@ -87,7 +87,7 @@ export default async function JoinPage({ params }: Props) {
         {benefits ? (
           <MarkdownRenderer content={benefits} />
         ) : (
-          <p className="text-gray-500 text-sm italic">{tCommon('contentComing')}</p>
+          <p className="text-gray-500 dark:text-gray-400 text-sm italic">{tCommon('contentComing')}</p>
         )}
       </section>
     </div>

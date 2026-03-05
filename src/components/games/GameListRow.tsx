@@ -8,10 +8,10 @@ import { cn, decodeHtml } from '@/lib/utils'
 import type { GameWithRelations } from '@/types/games'
 
 function weightColor(weight: number | null): string {
-  if (weight == null) return 'bg-gray-100 text-gray-600'
-  if (weight < 2) return 'bg-green-100 text-green-700'
-  if (weight < 3.5) return 'bg-yellow-100 text-yellow-700'
-  return 'bg-red-100 text-red-700'
+  if (weight == null) return 'bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300'
+  if (weight < 2) return 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300'
+  if (weight < 3.5) return 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-300'
+  return 'bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300'
 }
 
 type Props = {
@@ -50,12 +50,12 @@ export function GameListRow({ game, className }: Props) {
   return (
     <div
       className={cn(
-        'flex items-center gap-4 rounded-lg border border-gray-200 bg-white p-3 hover:bg-gray-50 transition-colors',
+        'flex items-center gap-4 rounded-lg border border-gray-200 bg-white p-3 hover:bg-gray-50 transition-colors dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700',
         className,
       )}
     >
       {/* Thumbnail */}
-      <div className="relative h-14 w-14 shrink-0 rounded-md overflow-hidden bg-gray-100">
+      <div className="relative h-14 w-14 shrink-0 rounded-md overflow-hidden bg-gray-100 dark:bg-gray-700">
         {imageUrl ? (
           <Image
             src={imageUrl}
@@ -83,20 +83,20 @@ export function GameListRow({ game, className }: Props) {
           )}
           {game.staffPick && <StaffPickBadge />}
           {game.lendingTo && (
-            <span className="rounded-full bg-gray-200 px-2 py-0.5 text-xs text-gray-600">
+            <span className="rounded-full bg-gray-200 px-2 py-0.5 text-xs text-gray-600 dark:bg-gray-700 dark:text-gray-400">
               {t('lendingBadge')}
             </span>
           )}
         </div>
         {game.designers.length > 0 && (
-          <p className="text-xs text-gray-400 truncate mt-0.5">
+          <p className="text-xs text-gray-400 dark:text-gray-500 truncate mt-0.5">
             {game.designers.map((d) => d.name).join(', ')}
           </p>
         )}
       </div>
 
       {/* Stats */}
-      <div className="hidden sm:flex items-center gap-4 text-xs text-gray-500 shrink-0">
+      <div className="hidden sm:flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400 shrink-0">
         {players && (
           <span className="flex items-center gap-1">
             <Users className="h-3.5 w-3.5" />

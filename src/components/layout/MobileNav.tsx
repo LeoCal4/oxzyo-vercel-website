@@ -5,6 +5,7 @@ import { Menu } from 'lucide-react'
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet'
 import { NavLinks } from './NavLinks'
 import { LocaleSwitcher } from './LocaleSwitcher'
+import { ThemeToggle } from './ThemeToggle'
 
 export function MobileNav() {
   const [open, setOpen] = useState(false)
@@ -29,7 +30,10 @@ export function MobileNav() {
             activeLinkClassName="underline underline-offset-4"
             onClick={() => setOpen(false)}
           />
-          <LocaleSwitcher className="mt-2" />
+          <div className="flex items-center gap-2">
+            <LocaleSwitcher />
+            <ThemeToggle />
+          </div>
         </div>
       </SheetContent>
     </Sheet>

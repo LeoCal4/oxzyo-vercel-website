@@ -8,10 +8,10 @@ import { cn, decodeHtml } from '@/lib/utils'
 import type { GameWithRelations } from '@/types/games'
 
 function weightColor(weight: number | null): string {
-  if (weight == null) return 'bg-gray-100 text-gray-600'
-  if (weight < 2) return 'bg-green-100 text-green-700'
-  if (weight < 3.5) return 'bg-yellow-100 text-yellow-700'
-  return 'bg-red-100 text-red-700'
+  if (weight == null) return 'bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300'
+  if (weight < 2) return 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300'
+  if (weight < 3.5) return 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-300'
+  return 'bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300'
 }
 
 function playerRange(min: number | null, max: number | null): string {
@@ -48,12 +48,12 @@ export function GameCard({ game, className }: Props) {
   return (
     <div
       className={cn(
-        'group flex flex-col rounded-xl border border-gray-200 bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow',
+        'group flex flex-col rounded-xl border border-gray-200 bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow dark:border-gray-700 dark:bg-gray-800',
         className,
       )}
     >
       {/* Cover image */}
-      <div className="relative aspect-square bg-gray-100 overflow-hidden">
+      <div className="relative aspect-square bg-gray-100 dark:bg-gray-700 overflow-hidden">
         {imageUrl ? (
           <Image
             src={imageUrl}
@@ -63,7 +63,7 @@ export function GameCard({ game, className }: Props) {
             className="object-cover object-top group-hover:scale-105 transition-transform duration-300"
           />
         ) : (
-          <div className="absolute inset-0 flex items-center justify-center bg-gray-200">
+          <div className="absolute inset-0 flex items-center justify-center bg-gray-200 dark:bg-gray-700">
             <BookOpen className="h-12 w-12 text-gray-400" />
           </div>
         )}
@@ -89,7 +89,7 @@ export function GameCard({ game, className }: Props) {
           ) : title}
         </h3>
 
-        <div className="flex items-center gap-3 text-xs text-gray-500 mt-auto">
+        <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400 mt-auto">
           <span className="flex items-center gap-1">
             <Users className="h-3.5 w-3.5" />
             {playerRange(game.minPlayers, game.maxPlayers)}

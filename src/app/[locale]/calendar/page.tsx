@@ -78,7 +78,7 @@ export default async function CalendarPage({ params }: PageProps) {
       <h1 className="text-2xl font-bold font-[family-name:var(--font-poppins)] mb-1">
         {t('title')}
       </h1>
-      <p className="text-gray-500 text-sm mb-8">{t('subtitle')}</p>
+      <p className="text-gray-500 dark:text-gray-400 text-sm mb-8">{t('subtitle')}</p>
 
       {/* Upcoming dated events */}
       <section aria-labelledby="upcoming-heading">
@@ -88,7 +88,7 @@ export default async function CalendarPage({ params }: PageProps) {
         {datedEvents.length > 0 ? (
           <EventList events={datedEvents} />
         ) : (
-          <p className="text-gray-500 text-sm py-6">{t('noEvents')}</p>
+          <p className="text-gray-500 dark:text-gray-400 text-sm py-6">{t('noEvents')}</p>
         )}
       </section>
 
@@ -105,7 +105,7 @@ export default async function CalendarPage({ params }: PageProps) {
       {/* Fixed venue map */}
       <section className="mt-12">
         <h2 className="text-lg font-semibold mb-1">{t('venue')}</h2>
-        <p className="text-sm text-gray-500 mb-3">{t('venueAddress')}</p>
+        <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">{t('venueAddress')}</p>
         <MapEmbed />
       </section>
     </div>

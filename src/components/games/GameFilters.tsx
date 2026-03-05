@@ -83,8 +83,8 @@ function MultiSelect({
           className={cn(
             'w-full flex items-center justify-between rounded-lg border px-3 py-2 text-sm text-left',
             count > 0
-              ? 'border-[#fd7c01] bg-orange-50 text-[#fd7c01] font-medium'
-              : 'border-gray-200 bg-white text-gray-700 hover:bg-gray-50',
+              ? 'border-[#fd7c01] bg-orange-50 text-[#fd7c01] font-medium dark:bg-orange-950'
+              : 'border-gray-200 bg-white text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700',
           )}
         >
           <span>{count > 0 ? `${label} (${count})` : label}</span>
@@ -136,35 +136,35 @@ function FiltersForm({ mechanics, categories, designers, currentParams }: Props)
           type="text"
           placeholder={t('filterSearch')}
           defaultValue={search}
-          className="w-full rounded-lg border border-gray-200 pl-9 pr-3 py-2 text-sm outline-none focus:border-[#0076fb] focus:ring-1 focus:ring-[#0076fb]"
+          className="w-full rounded-lg border border-gray-200 pl-9 pr-3 py-2 text-sm outline-none focus:border-[#0076fb] focus:ring-1 focus:ring-[#0076fb] dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 dark:placeholder-gray-500"
           onChange={(e) => updateFilter('search', e.target.value || null)}
         />
       </div>
 
       {/* Players */}
       <div>
-        <label className="block text-xs font-medium text-gray-600 mb-1">{t('filterPlayers')}</label>
+        <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">{t('filterPlayers')}</label>
         <input
           type="number"
           min={1}
           max={20}
           placeholder={t('filterPlayersPlaceholder')}
           defaultValue={players}
-          className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-[#0076fb] focus:ring-1 focus:ring-[#0076fb]"
+          className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-[#0076fb] focus:ring-1 focus:ring-[#0076fb] dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200"
           onChange={(e) => updateFilter('players', e.target.value || null)}
         />
       </div>
 
       {/* Playtime */}
       <div>
-        <label className="block text-xs font-medium text-gray-600 mb-1">{t('filterPlaytime')}</label>
+        <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">{t('filterPlaytime')}</label>
         <div className="flex gap-2">
           <input
             type="number"
             min={0}
             placeholder={t('filterMin')}
             defaultValue={minTime}
-            className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-[#0076fb] focus:ring-1 focus:ring-[#0076fb]"
+            className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-[#0076fb] focus:ring-1 focus:ring-[#0076fb] dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200"
             onChange={(e) => updateFilter('minTime', e.target.value || null)}
           />
           <input
@@ -172,7 +172,7 @@ function FiltersForm({ mechanics, categories, designers, currentParams }: Props)
             min={0}
             placeholder={t('filterMax')}
             defaultValue={maxTime}
-            className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-[#0076fb] focus:ring-1 focus:ring-[#0076fb]"
+            className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-[#0076fb] focus:ring-1 focus:ring-[#0076fb] dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200"
             onChange={(e) => updateFilter('maxTime', e.target.value || null)}
           />
         </div>
@@ -181,7 +181,7 @@ function FiltersForm({ mechanics, categories, designers, currentParams }: Props)
       {/* Mechanics */}
       {mechanics.length > 0 && (
         <div>
-          <label className="block text-xs font-medium text-gray-600 mb-1">{t('filterMechanics')}</label>
+          <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">{t('filterMechanics')}</label>
           <MultiSelect
             label={t('filterMechanics')}
             options={mechanics}
@@ -194,7 +194,7 @@ function FiltersForm({ mechanics, categories, designers, currentParams }: Props)
       {/* Categories */}
       {categories.length > 0 && (
         <div>
-          <label className="block text-xs font-medium text-gray-600 mb-1">{t('filterCategories')}</label>
+          <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">{t('filterCategories')}</label>
           <MultiSelect
             label={t('filterCategories')}
             options={categories}
@@ -207,7 +207,7 @@ function FiltersForm({ mechanics, categories, designers, currentParams }: Props)
       {/* Designers */}
       {designers.length > 0 && (
         <div>
-          <label className="block text-xs font-medium text-gray-600 mb-1">{t('filterDesigners')}</label>
+          <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">{t('filterDesigners')}</label>
           <MultiSelect
             label={t('filterDesigners')}
             options={designers}
@@ -225,7 +225,7 @@ function FiltersForm({ mechanics, categories, designers, currentParams }: Props)
           className="rounded border-gray-300 text-[#fd7c01] focus:ring-[#fd7c01]"
           onChange={(e) => updateFilter('staffPick', e.target.checked ? 'true' : null)}
         />
-        <span className="text-sm text-gray-700">{t('filterStaffPick')}</span>
+        <span className="text-sm text-gray-700 dark:text-gray-300">{t('filterStaffPick')}</span>
       </label>
 
       {/* Reset */}
@@ -251,7 +251,7 @@ export function GameFilters(props: Props) {
       {/* Desktop sidebar — hidden on mobile */}
       <aside className="hidden lg:block w-56 shrink-0">
         <div className="sticky top-20">
-          <h2 className="text-sm font-semibold text-gray-700 mb-4">{t('filterHeading')}</h2>
+          <h2 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-4">{t('filterHeading')}</h2>
           <FiltersForm {...props} />
         </div>
       </aside>
@@ -260,7 +260,7 @@ export function GameFilters(props: Props) {
       <div className="lg:hidden mb-4">
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
-            <button className="flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium hover:bg-gray-50">
+            <button className="flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700">
               <SlidersHorizontal className="h-4 w-4" />
               {t('filterHeading')}
             </button>

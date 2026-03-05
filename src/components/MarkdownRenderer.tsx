@@ -8,7 +8,7 @@ type Props = {
 
 export function MarkdownRenderer({ content, className }: Props) {
   return (
-    <div className={cn('prose prose-neutral max-w-none', className)}>
+    <div className={cn('prose prose-neutral max-w-none dark:prose-invert', className)}>
       <ReactMarkdown>{content}</ReactMarkdown>
     </div>
   )

@@ -2,6 +2,7 @@ import Image from 'next/image'
 import { Link } from '@/lib/i18n/navigation'
 import { NavLinks } from './NavLinks'
 import { LocaleSwitcher } from './LocaleSwitcher'
+import { ThemeToggle } from './ThemeToggle'
 import { MobileNav } from './MobileNav'
 
 export function Header() {
@@ -24,6 +25,7 @@ export function Header() {
         <div className="hidden md:flex items-center gap-6 text-white">
           <NavLinks linkClassName="text-white" />
           <LocaleSwitcher />
+          <ThemeToggle />
         </div>
 
         {/* Mobile nav */}
