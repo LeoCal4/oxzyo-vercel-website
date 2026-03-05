@@ -10,10 +10,10 @@ export function Header() {
     <header className="bg-[#fd7c01] sticky top-0 z-50 shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center shrink-0" aria-label="OxzyO – Orizzonti Ludici">
+        <Link href="/" className="flex items-center shrink-0" aria-label="OxzyO - Orizzonti Ludici">
           <Image
             src="/images/oxzyo_logo_no_bg.png"
-            alt="OxzyO – Orizzonti Ludici"
+            alt="OxzyO - Orizzonti Ludici"
             width={5000}
             height={5000}
             className="h-12 w-auto"

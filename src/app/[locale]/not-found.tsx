@@ -9,7 +9,7 @@ export default async function NotFound() {
     <div className="flex flex-col items-center justify-center min-h-[60vh] px-4 text-center">
       <Image
         src="/images/oxzyo_logo_no_bg.png"
-        alt="OxzyO – Orizzonti Ludici"
+        alt="OxzyO - Orizzonti Ludici"
         width={5000}
         height={5000}
         className="h-20 w-auto mb-8 opacity-30"

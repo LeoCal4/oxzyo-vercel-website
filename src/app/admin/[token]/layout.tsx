@@ -43,7 +43,7 @@ export default async function AdminLayout({
               ))}
             </div>
           </div>
-          <span className="text-xs text-gray-600 hidden md:block">OxzyO – Orizzonti Ludici</span>
+          <span className="text-xs text-gray-600 hidden md:block">OxzyO - Orizzonti Ludici</span>
         </div>
         {/* Mobile nav */}
         <div className="sm:hidden flex gap-4 px-6 pb-3 overflow-x-auto">

@@ -15,15 +15,15 @@ function weightColor(weight: number | null): string {
 }
 
 function playerRange(min: number | null, max: number | null): string {
-  if (min == null && max == null) return '–'
+  if (min == null && max == null) return '-'
   if (min === max) return String(min ?? max)
-  return `${min ?? '?'}–${max ?? '?'}`
+  return `${min ?? '?'}-${max ?? '?'}`
 }
 
 function playtimeRange(min: number | null, max: number | null): string {
-  if (min == null && max == null) return '–'
+  if (min == null && max == null) return '-'
   if (min === max || max == null) return `${min} min`
-  return `${min}–${max} min`
+  return `${min}-${max} min`
 }
 
 type Props = {

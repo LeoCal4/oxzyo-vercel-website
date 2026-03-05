@@ -153,7 +153,7 @@ export default function NewGameForm({ token }: NewGameFormProps) {
             />
           </div>
           <div>
-            <Label className="text-gray-400 text-xs mb-1 block">Weight (1–5)</Label>
+            <Label className="text-gray-400 text-xs mb-1 block">Weight (1-5)</Label>
             <Input
               type="number"
               min={1}
@@ -182,7 +182,7 @@ export default function NewGameForm({ token }: NewGameFormProps) {
             />
           </div>
           <div>
-            <Label className="text-gray-400 text-xs mb-1 block">Club Rating (1–5)</Label>
+            <Label className="text-gray-400 text-xs mb-1 block">Club Rating (1-5)</Label>
             <Input
               type="number"
               min={1}

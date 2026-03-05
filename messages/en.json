@@ -1,7 +1,7 @@
 {
   "homepage": {
     "title": "Home",
-    "description": "OxzyO – Orizzonti Ludici, Pisa's board game club.",
+    "description": "OxzyO - Orizzonti Ludici, Pisa's board game club.",
     "upcomingEvents": "Upcoming events",
     "noEvents": "No events scheduled.",
     "seeAllEvents": "See all events",
@@ -16,7 +16,7 @@
   },
   "about": {
     "title": "About Us",
-    "description": "Discover the story and values of OxzyO – Orizzonti Ludici, Pisa's board game club.",
+    "description": "Discover the story and values of OxzyO - Orizzonti Ludici, Pisa's board game club.",
     "story": "Our story",
     "gallery": "Photo gallery",
     "galleryComingSoon": "Club photos coming soon.",
@@ -24,14 +24,14 @@
   },
   "join": {
     "title": "Join Us",
-    "description": "Join the OxzyO – Orizzonti Ludici board game club in Pisa.",
+    "description": "Join the OxzyO - Orizzonti Ludici board game club in Pisa.",
     "process": "How to join",
     "benefits": "Benefits",
     "fee": "Membership fee"
   },
   "games": {
     "title": "Games Library",
-    "description": "Explore OxzyO's games library – over 600 board games available.",
+    "description": "Explore OxzyO's games library - over 600 board games available.",
     "notFound": "No games found",
     "noResultsHint": "Try adjusting the filters.",
     "itemCount": "{count, plural, one {# game} other {# games}}",
@@ -41,7 +41,7 @@
     "filterPlaytime": "Duration (minutes)",
     "filterMin": "Min",
     "filterMax": "Max",
-    "filterWeight": "Complexity (1–5)",
+    "filterWeight": "Complexity (1-5)",
     "filterMechanics": "Mechanics",
     "filterCategories": "Categories",
     "filterDesigners": "Designers",
@@ -66,7 +66,7 @@
     "games": "Games"
   },
   "footer": {
-    "copyright": "© {year} OxzyO – Orizzonti Ludici",
+    "copyright": "© {year} OxzyO - Orizzonti Ludici",
     "contact": "Contact"
   },
   "common": {
@@ -89,7 +89,7 @@
   "calendar": {
     "title": "Calendar",
     "subtitle": "Upcoming events and club nights",
-    "description": "Calendar of events and game nights at OxzyO – Orizzonti Ludici.",
+    "description": "Calendar of events and game nights at OxzyO - Orizzonti Ludici.",
     "upcomingEvents": "Upcoming events",
     "noEvents": "No events scheduled.",
     "announcements": "Announcements",

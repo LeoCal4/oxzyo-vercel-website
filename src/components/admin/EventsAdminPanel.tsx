@@ -153,7 +153,7 @@ export default function EventsAdminPanel({
                       </span>
                     </td>
                     <td className="px-4 py-3 text-gray-500 text-xs">
-                      {ev.startTime ? `${ev.startTime}${ev.endTime ? `–${ev.endTime}` : ''}` : '—'}
+                      {ev.startTime ? `${ev.startTime}${ev.endTime ? `-${ev.endTime}` : ''}` : '—'}
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex gap-2">
@@ -224,7 +224,7 @@ export default function EventsAdminPanel({
                       <div className="text-xs text-gray-500 font-mono mb-2">
                         {rule.rrule} · from {rule.dtstart}
                         {rule.until && ` until ${rule.until}`}
-                        {rule.startTime && ` · ${rule.startTime}${rule.endTime ? `–${rule.endTime}` : ''}`}
+                        {rule.startTime && ` · ${rule.startTime}${rule.endTime ? `-${rule.endTime}` : ''}`}
                       </div>
                     </div>
                     <div className="flex gap-2 flex-shrink-0">

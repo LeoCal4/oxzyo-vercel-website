@@ -36,14 +36,14 @@ export function GameListRow({ game, className }: Props) {
       ? null
       : game.minPlayers === game.maxPlayers
         ? String(game.minPlayers ?? game.maxPlayers)
-        : `${game.minPlayers ?? '?'}–${game.maxPlayers ?? '?'}`
+        : `${game.minPlayers ?? '?'}-${game.maxPlayers ?? '?'}`
 
   const playtime =
     game.minPlaytime == null && game.maxPlaytime == null
       ? null
       : game.minPlaytime === game.maxPlaytime || game.maxPlaytime == null
         ? `${game.minPlaytime} min`
-        : `${game.minPlaytime}–${game.maxPlaytime} min`
+        : `${game.minPlaytime}-${game.maxPlaytime} min`
 
   const bggUrl = game.bggId ? `https://boardgamegeek.com/boardgame/${game.bggId}` : null
 

@@ -16,7 +16,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "OxzyO – Orizzonti Ludici",
+  title: "OxzyO - Orizzonti Ludici",
   description: "Il club di giochi da tavolo di Pisa",
 };
 

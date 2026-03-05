@@ -76,7 +76,7 @@ export function EventDetail({ event, open, onOpenChange }: Props) {
                 <Clock className="h-4 w-4 text-[#fd7c01] flex-shrink-0" />
                 <span>
                   {startTime}
-                  {endTime ? ` – ${endTime}` : ''}
+                  {endTime ? ` - ${endTime}` : ''}
                 </span>
               </div>
             )}

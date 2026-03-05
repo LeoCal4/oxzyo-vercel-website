@@ -80,7 +80,7 @@ export function EventCard({ event, className }: Props) {
               <span className="flex items-center gap-1">
                 <Clock className="h-3 w-3" />
                 {startTime}
-                {endTime ? `–${endTime}` : ''}
+                {endTime ? `-${endTime}` : ''}
               </span>
             )}
             {(event.useFixedVenue || event.locationText) && (

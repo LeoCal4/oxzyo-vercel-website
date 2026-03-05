@@ -1,7 +1,7 @@
 {
   "homepage": {
     "title": "Home",
-    "description": "OxzyO – Orizzonti Ludici, il club di giochi da tavolo di Pisa.",
+    "description": "OxzyO - Orizzonti Ludici, il club di giochi da tavolo di Pisa.",
     "upcomingEvents": "Prossimi eventi",
     "noEvents": "Nessun evento in programma.",
     "seeAllEvents": "Vedi tutti gli eventi",
@@ -16,7 +16,7 @@
   },
   "about": {
     "title": "Chi Siamo",
-    "description": "Scopri la storia e i valori di OxzyO – Orizzonti Ludici, il club di giochi da tavolo di Pisa.",
+    "description": "Scopri la storia e i valori di OxzyO - Orizzonti Ludici, il club di giochi da tavolo di Pisa.",
     "story": "La nostra storia",
     "gallery": "Galleria foto",
     "galleryComingSoon": "Le foto del club arriveranno presto.",
@@ -24,14 +24,14 @@
   },
   "join": {
     "title": "Unisciti a Noi",
-    "description": "Unisciti al club di giochi da tavolo OxzyO – Orizzonti Ludici di Pisa.",
+    "description": "Unisciti al club di giochi da tavolo OxzyO - Orizzonti Ludici di Pisa.",
     "process": "Come si aderisce",
     "benefits": "Vantaggi",
     "fee": "Quota associativa"
   },
   "games": {
     "title": "Ludoteca",
-    "description": "Esplora la ludoteca di OxzyO – oltre 600 giochi da tavolo disponibili.",
+    "description": "Esplora la ludoteca di OxzyO - oltre 600 giochi da tavolo disponibili.",
     "notFound": "Nessun gioco trovato",
     "noResultsHint": "Prova a modificare i filtri.",
     "itemCount": "{count, plural, one {# gioco} other {# giochi}}",
@@ -41,7 +41,7 @@
     "filterPlaytime": "Durata (minuti)",
     "filterMin": "Min",
     "filterMax": "Max",
-    "filterWeight": "Complessità (1–5)",
+    "filterWeight": "Complessità (1-5)",
     "filterMechanics": "Meccaniche",
     "filterCategories": "Categorie",
     "filterDesigners": "Autori",
@@ -66,7 +66,7 @@
     "games": "Giochi"
   },
   "footer": {
-    "copyright": "© {year} OxzyO – Orizzonti Ludici",
+    "copyright": "© {year} OxzyO - Orizzonti Ludici",
     "contact": "Contatti"
   },
   "common": {
@@ -89,7 +89,7 @@
   "calendar": {
     "title": "Calendario",
     "subtitle": "Prossimi eventi e serate del club",
-    "description": "Calendario degli eventi e delle serate di gioco di OxzyO – Orizzonti Ludici.",
+    "description": "Calendario degli eventi e delle serate di gioco di OxzyO - Orizzonti Ludici.",
     "upcomingEvents": "Prossimi eventi",
     "noEvents": "Nessun evento in programma.",
     "announcements": "Annunci",

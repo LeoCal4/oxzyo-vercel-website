@@ -40,13 +40,13 @@ export async function Footer() {
           <div className="flex flex-col gap-3">
             <Image
               src="/images/oxzyo_logo_no_bg.png"
-              alt="OxzyO – Orizzonti Ludici"
+              alt="OxzyO - Orizzonti Ludici"
               width={5000}
               height={5000}
               className="h-12 w-auto self-start"
             />
             <p className="text-sm text-white/80">
-              OxzyO – Orizzonti Ludici
+              OxzyO - Orizzonti Ludici
             </p>
             <p className="text-xs text-white/60">
               Via Bonanno Pisano 20, Pisa
@@ -103,7 +103,7 @@ export async function Footer() {
               <span
                 aria-label="WhatsApp (prossimamente)"
                 className="text-white/30 cursor-not-allowed"
-                title="WhatsApp – prossimamente"
+                title="WhatsApp - prossimamente"
               >
                 <WhatsAppIcon className="h-5 w-5" />
               </span>

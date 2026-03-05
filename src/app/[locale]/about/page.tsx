@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: `${t('title')} | OxzyO`,
       description: t('description'),
       url: `${siteUrl}/${locale}/about`,
-      siteName: 'OxzyO – Orizzonti Ludici',
+      siteName: 'OxzyO - Orizzonti Ludici',
       locale: locale === 'it' ? 'it_IT' : 'en_GB',
     },
   }

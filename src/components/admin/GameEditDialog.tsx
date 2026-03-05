@@ -100,7 +100,7 @@ export default function GameEditDialog({ game, token, onClose, onSaved }: GameEd
                 />
               </div>
               <div>
-                <Label className="text-gray-400 text-xs mb-1 block">Club Rating (1–5)</Label>
+                <Label className="text-gray-400 text-xs mb-1 block">Club Rating (1-5)</Label>
                 <Input
                   type="number"
                   min={1}

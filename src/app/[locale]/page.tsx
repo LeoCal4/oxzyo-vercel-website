@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: `${t('title')} | OxzyO`,
       description: t('description'),
       url: `${siteUrl}/${locale}`,
-      siteName: 'OxzyO – Orizzonti Ludici',
+      siteName: 'OxzyO - Orizzonti Ludici',
       locale: locale === 'it' ? 'it_IT' : 'en_GB',
     },
   }
@@ -112,14 +112,14 @@ export default async function HomePage({ params }: Props) {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 py-20 flex flex-col items-center text-center gap-6">
           <Image
             src="/images/oxzyo_logo_no_bg.png"
-            alt="OxzyO – Orizzonti Ludici"
+            alt="OxzyO - Orizzonti Ludici"
             width={5000}
             height={5000}
             className="h-24 w-auto"
             priority
           />
           <h1 className="text-4xl sm:text-5xl font-bold font-[family-name:var(--font-poppins)] leading-tight">
-            OxzyO – Orizzonti Ludici
+            OxzyO - Orizzonti Ludici
           </h1>
           {tagline && (
             <p className="text-lg sm:text-xl text-white/90 max-w-xl">{tagline}</p>
