@@ -1,6 +1,7 @@
 'use client'
 
 import { useRouter, usePathname, useSearchParams } from 'next/navigation'
+import { useTransition } from 'react'
 import { useTranslations } from 'next-intl'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -16,13 +17,16 @@ export function GamePagination({ page, pageCount, total }: Props) {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
+  const [isPending, startTransition] = useTransition()
 
   if (pageCount <= 1) return null
 
   function goTo(p: number) {
     const params = new URLSearchParams(searchParams.toString())
     params.set('page', String(p))
-    router.push(`${pathname}?${params.toString()}`, { scroll: true })
+    startTransition(() => {
+      router.push(`${pathname}?${params.toString()}`, { scroll: true })
+    })
   }
 
   // Build page number list with ellipsis
@@ -45,7 +49,7 @@ export function GamePagination({ page, pageCount, total }: Props) {
         {t('itemCount', { count: total })}
       </p>
 
-      <div className="flex items-center gap-1">
+      <div className={cn('flex items-center gap-1', isPending && 'opacity-60 pointer-events-none')}>
         <button
           onClick={() => goTo(page - 1)}
           disabled={page <= 1}

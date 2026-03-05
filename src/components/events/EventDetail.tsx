@@ -73,7 +73,7 @@ export function EventDetail({ event, open, onOpenChange }: Props) {
           <div className="flex flex-col gap-2 text-sm text-gray-600">
             {startTime && (
               <div className="flex items-center gap-2">
-                <Clock className="h-4 w-4 text-[#fd7c01] flex-shrink-0" />
+                <Clock className="h-4 w-4 text-[#fd7c01] flex-shrink-0" aria-hidden="true" />
                 <span>
                   {startTime}
                   {endTime ? ` - ${endTime}` : ''}
@@ -82,7 +82,7 @@ export function EventDetail({ event, open, onOpenChange }: Props) {
             )}
             {(event.useFixedVenue || event.locationText) && (
               <div className="flex items-center gap-2">
-                <MapPin className="h-4 w-4 text-[#fd7c01] flex-shrink-0" />
+                <MapPin className="h-4 w-4 text-[#fd7c01] flex-shrink-0" aria-hidden="true" />
                 <span>
                   {event.useFixedVenue
                     ? t('fixedVenueFull')
@@ -103,6 +103,8 @@ export function EventDetail({ event, open, onOpenChange }: Props) {
             <img
               src={event.imageUrl}
               alt={event.title}
+              width={800}
+              height={192}
               className="w-full rounded-lg object-cover max-h-48"
             />
           )}

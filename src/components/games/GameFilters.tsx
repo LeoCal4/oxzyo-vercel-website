@@ -88,7 +88,7 @@ function MultiSelect({
           )}
         >
           <span>{count > 0 ? `${label} (${count})` : label}</span>
-          <SlidersHorizontal className="h-3.5 w-3.5 shrink-0 ml-2" />
+          <SlidersHorizontal className="h-3.5 w-3.5 shrink-0 ml-2" aria-hidden="true" />
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-64 max-h-72 overflow-y-auto">
@@ -110,6 +110,8 @@ function MultiSelect({
 
 function FiltersForm({ mechanics, categories, designers, currentParams }: Props) {
   const t = useTranslations('games')
+  const router = useRouter()
+  const pathname = usePathname()
   const updateFilter = useFilterRouter(currentParams)
 
   const search = str(currentParams.search)
@@ -149,8 +151,10 @@ function FiltersForm({ mechanics, categories, designers, currentParams }: Props)
 
       {/* Search */}
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" aria-hidden="true" />
+        <label htmlFor="games-search" className="sr-only">{t('filterSearch')}</label>
         <input
+          id="games-search"
           type="text"
           placeholder={t('filterSearch')}
           defaultValue={search}
@@ -248,13 +252,13 @@ function FiltersForm({ mechanics, categories, designers, currentParams }: Props)
 
       {/* Reset */}
       {hasFilters && (
-        <a
-          href={typeof window !== 'undefined' ? window.location.pathname : ''}
+        <button
+          onClick={() => router.push(pathname)}
           className="flex items-center gap-1 text-sm text-red-500 hover:text-red-600"
         >
-          <X className="h-3.5 w-3.5" />
+          <X className="h-3.5 w-3.5" aria-hidden="true" />
           {t('filterReset')}
-        </a>
+        </button>
       )}
     </div>
   )
@@ -279,7 +283,7 @@ export function GameFilters(props: Props) {
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
             <button className="flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700">
-              <SlidersHorizontal className="h-4 w-4" />
+              <SlidersHorizontal className="h-4 w-4" aria-hidden="true" />
               {t('filterHeading')}
             </button>
           </SheetTrigger>

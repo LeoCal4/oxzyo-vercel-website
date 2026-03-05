@@ -12,13 +12,11 @@ export default async function EventsAdminPage({
 }) {
   const { token } = await params
 
-  const [allEvents, allRules] = await Promise.all([
+  const [allEvents, allRules, allExceptions] = await Promise.all([
     db.select().from(events).orderBy(desc(events.date)),
     db.select().from(recurringRules).orderBy(asc(recurringRules.titleIt)),
+    db.select().from(recurringExceptions).orderBy(asc(recurringExceptions.exceptionDate)),
   ])
-
-  // Load exceptions for all rules
-  const allExceptions = await db.select().from(recurringExceptions).orderBy(asc(recurringExceptions.exceptionDate))
 
   return (
     <div>

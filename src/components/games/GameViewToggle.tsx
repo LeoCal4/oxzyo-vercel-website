@@ -10,7 +10,7 @@ import { GamesGridSkeleton, GameCardSkeleton } from './GameCardSkeleton'
 import { GamesListSkeleton } from './GameListRowSkeleton'
 import type { GameWithRelations } from '@/types/games'
 
-const STORAGE_KEY = 'gameView'
+const STORAGE_KEY = 'gameView:v1'
 
 type View = 'grid' | 'list'
 
@@ -24,14 +24,18 @@ export function GameViewToggle({ games }: Props) {
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    const saved = localStorage.getItem(STORAGE_KEY) as View | null
-    if (saved === 'list' || saved === 'grid') setView(saved)
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY) as View | null
+      if (saved === 'list' || saved === 'grid') setView(saved)
+    } catch {}
     setMounted(true)
   }, [])
 
   function switchView(v: View) {
     setView(v)
-    localStorage.setItem(STORAGE_KEY, v)
+    try {
+      localStorage.setItem(STORAGE_KEY, v)
+    } catch {}
   }
 
   return (

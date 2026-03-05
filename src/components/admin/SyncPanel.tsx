@@ -96,7 +96,7 @@ export default function SyncPanel({ token, recentJobs }: SyncPanelProps) {
           disabled={isSyncing}
           className="bg-orange-500 hover:bg-orange-600 text-white disabled:opacity-50"
         >
-          {isSyncing ? 'Sync in progress…' : 'Avvia sincronizzazione BGG'}
+          {isSyncing ? 'Sync in progress…' : 'Start BGG Sync'}
         </Button>
         {polling && (
           <span className="ml-3 text-xs text-gray-500">Polling every 3s…</span>
@@ -123,7 +123,7 @@ export default function SyncPanel({ token, recentJobs }: SyncPanelProps) {
               {jobs.map((job) => (
                 <tr key={job.id} className="border-b border-gray-800/50 last:border-0">
                   <td className="px-6 py-3 text-gray-300">
-                    {new Date(job.startedAt).toLocaleString('it-IT', {
+                    {new Date(job.startedAt).toLocaleString('en-GB', {
                       day: '2-digit',
                       month: '2-digit',
                       year: 'numeric',
