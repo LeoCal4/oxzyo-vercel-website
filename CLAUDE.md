@@ -450,3 +450,27 @@ Run `vercel env pull .env.local` to pull all Vercel-injected vars (Neon, Blob) i
 8. **API routes only for**: BGG sync trigger/status (async polling pattern) and Vercel Blob image upload.
 9. **Map embed**: use OpenStreetMap iframe — no Google Maps API key required.
 10. **Contact**: `mailto:tdg.pisa@gmail.com` — no contact form, just a link.
+
+---
+
+## Implementation Notes (Phase 8 findings)
+
+### Dark mode
+`next-themes@^0.4.6` is installed. Dark mode is fully implemented:
+- `src/components/layout/ThemeProvider.tsx` — `'use client'` wrapper around `NextThemesProvider` (attribute="class", defaultTheme="system")
+- `src/components/layout/ThemeToggle.tsx` — sun/moon button using CSS-based icon swap (`dark:hidden` / `hidden dark:block`) to avoid mounted-state flicker
+- `ThemeProvider` wraps `{children}` in `src/app/layout.tsx`
+- `ThemeToggle` appears in both desktop nav (`Header.tsx`) and mobile sheet (`MobileNav.tsx`)
+- Orange header (`#fd7c01`) and blue footer (`#0076fb`) intentionally unchanged in dark mode — brand identity decision
+- `MarkdownRenderer` uses `dark:prose-invert` to flip `@tailwindcss/typography` colors in dark mode
+
+### BGG weight data
+`averageweight` is **only** in the `/thing` BGG endpoint (with `stats=1`), NOT in `/collection`. Weight is parsed in `parseThings()` in `src/lib/bgg/parser.ts` and sourced from `thingMap` in sync. Without `BGG_API_TOKEN`, all weights remain null.
+
+### Games sort
+Sort is URL-driven via `?sort=` param. Valid values: `title`, `titleDesc`, `timesPlayed`, `timesPlayedAsc`, `minPlaytime`, `minPlaytimeDesc`. Parsed and validated in `parseParams()` in `games/page.tsx`. `minPlaytime` sorts use raw SQL with `NULLS LAST`.
+
+### Calendar view
+`src/components/events/EventsDisplay.tsx` — client wrapper that holds list/calendar toggle state. Renders either month-grouped `EventList` or `CalendarGrid`.
+`src/components/events/CalendarGrid.tsx` — monthly grid; mobile shows colored dots, desktop shows event title pills (up to 3 per day). Month navigation via prev/next buttons. Clicking any event opens `EventDetail`.
+`recurringExceptions` in the calendar page are filtered to `exceptionDate >= today` — past exceptions are irrelevant for future display.

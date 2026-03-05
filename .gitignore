@@ -41,5 +41,7 @@ yarn-error.log*
 next-env.d.ts
 
 /.claude
+/.agents
 /docs
 .env*.local
+skills-lock.json
