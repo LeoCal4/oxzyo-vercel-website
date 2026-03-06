@@ -262,7 +262,7 @@ Logo files in `public/images/`:
 ```
 Club name:    OxzyO - Orizzonti Ludici
 Contact:      tdg.pisa@gmail.com
-Address:      Via Bonanno Pisano 20, Pisa, 56124, Italy
+Address:      Via Bonanno Pisano 95, Pisa, 56124, Italy
 BGG profile:  https://boardgamegeek.com/profile/orizzontiludici
 Social:       Instagram, Facebook, Telegram (WhatsApp: future placeholder)
 ```

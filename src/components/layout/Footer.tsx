@@ -49,7 +49,7 @@ export async function Footer() {
               OxzyO - Orizzonti Ludici
             </p>
             <p className="text-xs text-white/60">
-              Via Bonanno Pisano 20, Pisa
+              Via Bonanno Pisano 95, Pisa
             </p>
           </div>
 

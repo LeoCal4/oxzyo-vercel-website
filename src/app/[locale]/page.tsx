@@ -208,7 +208,7 @@ export default async function HomePage({ params }: Props) {
           <p className="text-white/80 text-sm">{t('contact.address')}</p>
           <div className="flex items-center gap-4">
             <a
-              href="https://www.instagram.com/"
+              href="https://www.instagram.com/oxyzo_orizzontiludici/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
@@ -217,7 +217,7 @@ export default async function HomePage({ params }: Props) {
               <Instagram className="h-6 w-6" />
             </a>
             <a
-              href="https://www.facebook.com/"
+              href="https://www.facebook.com/OxyzOOrizzontiLudici/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Facebook"
@@ -226,7 +226,7 @@ export default async function HomePage({ params }: Props) {
               <Facebook className="h-6 w-6" />
             </a>
             <a
-              href="https://t.me/"
+              href="https://t.me/OxyzO_OrizzontiLudiciNEWS#"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Telegram"

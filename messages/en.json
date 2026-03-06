@@ -11,7 +11,7 @@
     "contact": {
       "heading": "Contact us",
       "button": "Send an email",
-      "address": "Via Bonanno Pisano 20, Pisa"
+      "address": "Via Bonanno Pisano 95, Pisa"
     }
   },
   "about": {
@@ -63,7 +63,8 @@
     "weightLight": "Light",
     "weightMedium": "Medium",
     "weightHeavy": "Heavy",
-    "lendingBadge": "On loan"
+    "lendingBadge": "On loan",
+    "staffPickBadge": "Staff Pick"
   },
   "nav": {
     "home": "Home",
@@ -101,9 +102,9 @@
     "noEvents": "No events scheduled.",
     "announcements": "Announcements",
     "venue": "Our venue",
-    "venueAddress": "Via Bonanno Pisano 20, Pisa",
+    "venueAddress": "Via Bonanno Pisano 95, Pisa",
     "fixedVenue": "Club venue",
-    "fixedVenueFull": "Via Bonanno Pisano 20, Pisa (club venue)",
+    "fixedVenueFull": "Via Bonanno Pisano 95, Pisa (club venue)",
     "viewList": "List view",
     "viewCalendar": "Calendar view",
     "openDetails": "Open details: {title}",

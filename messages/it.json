@@ -1,30 +1,30 @@
 {
   "homepage": {
     "title": "Home",
-    "description": "OxzyO - Orizzonti Ludici, il club di giochi da tavolo di Pisa.",
+    "description": "OxzyO - Orizzonti Ludici - Associazione Ludica di Pisa.",
     "upcomingEvents": "Prossimi eventi",
     "noEvents": "Nessun evento in programma.",
     "seeAllEvents": "Vedi tutti gli eventi",
-    "staffPicks": "Scelti dallo staff",
+    "staffPicks": "Consigliati dallo Staff",
     "noStaffPicks": "Nessun gioco selezionato.",
     "seeAllGames": "Vedi tutti i giochi",
     "contact": {
       "heading": "Contattaci",
       "button": "Invia un'email",
-      "address": "Via Bonanno Pisano 20, Pisa"
+      "address": "Via Bonanno Pisano 95, Pisa"
     }
   },
   "about": {
     "title": "Chi Siamo",
-    "description": "Scopri la storia e i valori di OxzyO - Orizzonti Ludici, il club di giochi da tavolo di Pisa.",
+    "description": "Scopri la storia e i valori di OxzyO - Orizzonti Ludici, l'associazione ludica di Pisa.",
     "story": "La nostra storia",
     "gallery": "Galleria foto",
-    "galleryComingSoon": "Le foto del club arriveranno presto.",
+    "galleryComingSoon": "Le foto dell'associazione arriveranno presto.",
     "values": "I nostri valori"
   },
   "join": {
     "title": "Unisciti a Noi",
-    "description": "Unisciti al club di giochi da tavolo OxzyO - Orizzonti Ludici di Pisa.",
+    "description": "Unisciti a OxzyO - Orizzonti Ludici.",
     "process": "Come si aderisce",
     "benefits": "Vantaggi",
     "fee": "Quota associativa"
@@ -45,7 +45,7 @@
     "filterMechanics": "Meccaniche",
     "filterCategories": "Categorie",
     "filterDesigners": "Autori",
-    "filterStaffPick": "Solo Staff Pick",
+    "filterStaffPick": "Solo Consigliati dallo Staff",
     "filterReset": "Rimuovi filtri",
     "filterHeading": "Filtri",
     "sortLabel": "Ordina per",
@@ -63,7 +63,8 @@
     "weightLight": "Leggero",
     "weightMedium": "Medio",
     "weightHeavy": "Pesante",
-    "lendingBadge": "In prestito"
+    "lendingBadge": "In prestito",
+    "staffPickBadge": "Consigliati dallo Staff"
   },
   "nav": {
     "home": "Home",
@@ -95,15 +96,15 @@
   },
   "calendar": {
     "title": "Calendario",
-    "subtitle": "Prossimi eventi e serate del club",
+    "subtitle": "Prossimi eventi e serate dell'associazione",
     "description": "Calendario degli eventi e delle serate di gioco di OxzyO - Orizzonti Ludici.",
     "upcomingEvents": "Prossimi eventi",
     "noEvents": "Nessun evento in programma.",
     "announcements": "Annunci",
     "venue": "La nostra sede",
-    "venueAddress": "Via Bonanno Pisano 20, Pisa",
-    "fixedVenue": "Sede del club",
-    "fixedVenueFull": "Via Bonanno Pisano 20, Pisa (sede del club)",
+    "venueAddress": "Via Bonanno Pisano 95, Pisa",
+    "fixedVenue": "Sede dell'associazione",
+    "fixedVenueFull": "Via Bonanno Pisano 95, Pisa (sede dell'associazione)",
     "viewList": "Vista lista",
     "viewCalendar": "Vista calendario",
     "openDetails": "Apri dettagli: {title}",

@@ -17,7 +17,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "OxzyO - Orizzonti Ludici",
-  description: "Il club di giochi da tavolo di Pisa",
+  description: "Associazione Ludica - Tana del Goblin di Pisa",
   openGraph: {
     title: "OxzyO - Orizzonti Ludici",
     description: "Associazione Ludica - Tana del Goblin di Pisa",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "OxzyO - Orizzonti Ludici",
-    description: "Il club di giochi da tavolo di Pisa",
+    description: "Associazione Ludica - Tana del Goblin di Pisa",
     images: ["/images/og-default.png"],
   },
 };

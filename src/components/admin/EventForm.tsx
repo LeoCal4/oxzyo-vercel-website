@@ -176,7 +176,7 @@ export default function EventForm({ token, event, onSaved, onCancel }: EventForm
           className="w-4 h-4 rounded accent-orange-500"
         />
         <Label htmlFor="fixedVenue" className="text-gray-300 cursor-pointer text-sm">
-          Use fixed venue (Via Bonanno Pisano 20)
+          Use fixed venue (Via Bonanno Pisano 95)
         </Label>
       </div>
       {!useFixedVenue && (

@@ -1,9 +1,9 @@
 import { cn } from '@/lib/utils'
 
-// Via Bonanno Pisano 20, Pisa, 56124, Italy
-// Approximate coordinates: 43.7235°N, 10.4090°E
+// Via Bonanno Pisano 95, Pisa, 56124, Italy
+// Coordinates: 43.720118°N, 10.390470°E
 const MAP_URL =
-  'https://www.openstreetmap.org/export/embed.html?bbox=10.3990%2C43.7185%2C10.4190%2C43.7285&layer=mapnik&marker=43.7235%2C10.4090'
+  'https://www.openstreetmap.org/export/embed.html?bbox=10.3805%2C43.7151%2C10.4005%2C43.7251&layer=mapnik&marker=43.720118%2C10.390470'
 
 type Props = {
   className?: string
@@ -18,8 +18,8 @@ export function MapEmbed({ className }: Props) {
         height="300"
         style={{ border: 0 }}
         loading="lazy"
-        title="Via Bonanno Pisano 20, Pisa"
-        aria-label="Mappa della sede: Via Bonanno Pisano 20, Pisa"
+        title="Via Bonanno Pisano 95, Pisa"
+        aria-label="Mappa della sede: Via Bonanno Pisano 95, Pisa"
       />
     </div>
   )
